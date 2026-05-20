@@ -1,9 +1,51 @@
-# The SEPSES-CSKG Engine (v2.1.0)
+# SEPSES Cybersecurity Knowledge Graph Chatbot
 
-SEPSES-CSKG is a cybersecurity knowledge graph that integrates and links critical information such as vulnerabilities, weaknesses and attack patterns from various publicly available sources. The Knowledge Graph is continuously updated to reflect changes in various data sources used as inputs, i.e., CAPEC, CPE, CVE, CVSS, and CWE. This engine is designed as a RDF generation mechanism from several CyberSecurity resources. In our server, we add additional bash command to run it continuously, but we didn't provide the script here.
+SEPSES Cybersecurity Knowledge Graph Chatbot is an LLM-based cybersecurity analysis assistant that integrates Large Language Models (LLMs) with the SEPSES Cybersecurity Knowledge Graph (CSKG) to provide explainable and context-aware cybersecurity analysis.
 
-## New: ISC-SEC KG
-<span style="color:red">**New!**</span> Several additional resources for <u>Industrial Control System Cybersecurity (ICS-Sec)</u> has been included, i.e., MITRE ATT&CK (Enterprise and ICS) and ICSA (Industrial Control System Advisory).  Detail information can be found <a href="https://github.com/sepses/ics-sec-kg"> here</a>.
+Unlike general-purpose AI chatbots that rely only on pretrained language knowledge, this system utilizes structured cybersecurity knowledge from SEPSES CSKG combined with Retrieval-Augmented Generation (RAG) / GraphRAG mechanisms to reduce hallucination and improve analytical accuracy.
+
+The chatbot supports cybersecurity question-answering, threat actor analysis, malware investigation, vulnerability relationship analysis, and security log analysis.
+
+## Team Members
+- Diayu Nur Aini          24/537751/PA/22792 - Diayu Nur Aini
+- Freta Yordinia Laura    24/533444/PA/22576 - Yor
+- Herlina Iin Nur Soleha  24/541333/PA/22962 - Herlina-Iin
+- Ananda Auliya Rahma     24/533691/PA/22608 - anandauliya
+
+## Project Objectives
+- Integrate SEPSES CSKG with LLMs for cybersecurity analysis
+- Implement GraphRAG / RAG architecture
+- Support explainable cybersecurity question-answering
+- Analyze relationships between vulnerabilities, malware, threat actors, and attacks
+- Evaluate multiple LLMs for cybersecurity tasks
+- Provide an interactive chatbot interface for analysts and researchers
+
+## Features
+
+### Cybersecurity Question Answering
+- Ask cybersecurity-related questions using natural language
+- Retrieve structured information from SEPSES CSKG
+- Generate explainable responses with graph context
+
+### Threat Actor Analysis
+- Analyze threat actors and associated attack patterns
+- Discover related malware, vulnerabilities, and campaigns
+
+### Malware Investigation
+- Investigate malware families and their behaviors
+- Explore malware relationships within the knowledge graph
+
+### Vulnerability Relationship Analysis
+- Analyze CVE relationships
+- Discover affected systems, attack vectors, and linked malware
+
+### Security Log Analysis
+- Upload and analyze local security logs
+- Combine vector database retrieval with LLM reasoning
+
+### RAG / GraphRAG Integration
+- Knowledge retrieval from RDF/SPARQL resources
+- Context-aware answer generation using LLMs
 
 ## Vocabularies
 Several vocabularies are developed to represent the SEPSES-CSKG knowledge graphs, as follows:
