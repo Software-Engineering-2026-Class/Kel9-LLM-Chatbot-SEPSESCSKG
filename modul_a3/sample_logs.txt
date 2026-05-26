@@ -1,0 +1,15 @@
+Failed password for root from 192.168.1.105 port 22 ssh2
+Failed password for invalid user admin from 10.0.0.5 port 3389
+Accepted publickey for user from 192.168.1.2 port 22
+sudo: user NOT in sudoers ; TTY=pts/0 ; USER=root ; COMMAND=/bin/bash
+segfault at 0 ip 00007f error 4 in libc.so
+iptables: DROP IN=eth0 SRC=203.0.113.5 DST=10.0.0.1 PROTO=TCP DPT=22
+PHP Warning: file_get_contents(http://malicious.com/shell.php)
+GET /etc/passwd HTTP/1.1 400 from 192.168.1.200
+Possible SYN flood on port 80
+New connection from 45.33.32.156 on port 4444 (possible reverse shell)
+Authentication failure for user admin from 172.16.0.5
+Port scan detected from 192.168.1.99
+Malware signature detected: Trojan.GenericKD in C:\Windows\Temp\svchost.exe
+Unauthorized access attempt to /admin panel from 10.10.10.5
+SQL injection attempt detected in GET parameter
