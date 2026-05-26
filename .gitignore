@@ -15,3 +15,7 @@ data/graph0000001_cve.ttl
 *.pxa
 *.log
 virtuoso-data/virtuoso-data/
+.env
+__pycache__/
+*.pyc
+chroma_db/

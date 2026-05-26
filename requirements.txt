@@ -1,0 +1,10 @@
+langchain
+langchain-openai
+openai
+python-dotenv
+SPARQLWrapper
+chromadb
+scikit-learn
+streamlit
+mitreattack-python
+pandas
