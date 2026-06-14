@@ -1,0 +1,104 @@
+services:
+  virtuoso:
+    image: openlink/virtuoso-opensource-7:latest
+    container_name: virtuoso
+    ports:
+      - "8890:8890"
+      - "1111:1111"
+    environment:
+      DBA_PASSWORD: dba
+      SPARQL_UPDATE: "true"
+      DEFAULT_GRAPH: "http://sepses.local"
+      VIRT_Parameters_DirsAllowed: ".,../vad,/usr/share/proj,/database,/dumps,/opt/virtuoso-opensource/vad"
+
+    volumes:
+      # Database Virtuoso (named volume, bukan folder berisi dump).
+      - virtuoso_db:/database
+      # Sumber tunggal dump TTL (Issue #1): hanya data/cskg_dumps, read-only.
+      - ./data/cskg_dumps:/dumps:ro
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/virtuoso-opensource/bin/isql", "1111", "dba", "dba", "exec=status();"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+    restart: unless-stopped
+
+  virtuoso-loader:
+    image: openlink/virtuoso-opensource-7:latest
+    container_name: virtuoso-loader
+    depends_on:
+      - virtuoso
+    environment:
+      VIRTUOSO_HOST: virtuoso
+      VIRTUOSO_PORT: "1111"
+      DBA_PASSWORD: dba
+      TARGET_GRAPH: "http://sepses.local"
+      # Issue #1: muat dari /dumps (mount dari data/cskg_dumps), bukan /database.
+      DB_DIR: /dumps
+    volumes:
+      - ./scripts/virtuoso_init.sh:/init/virtuoso_init.sh:ro
+      - ./data/cskg_dumps:/dumps:ro
+    entrypoint: ["/bin/bash", "/init/virtuoso_init.sh"]
+    restart: "no"
+
+  # Backend FastAPI + orchestrator (RAG / GraphRAG).
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: sepses-backend
+    depends_on:
+      - virtuoso
+    environment:
+      # --- LLM ---
+      LLM_PROVIDER: ${LLM_PROVIDER:-gemini}
+      LLM_MODELS: ${LLM_MODELS:-gemini:gemini-2.5-flash,gemini:gemini-2.0-flash,ollama:llama3.2:3b}
+      DEFAULT_MODEL: ${DEFAULT_MODEL:-gemini:gemini-2.5-flash}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_BASE_URL: ${GEMINI_BASE_URL:-https://generativelanguage.googleapis.com/v1beta/openai/}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      LLM_TIMEOUT: ${LLM_TIMEOUT:-120}
+      # --- SEPSES publik (sumber utama) ---
+      SEPSES_PUBLIC_ENDPOINT: ${SEPSES_PUBLIC_ENDPOINT:-https://sepses.ifs.tuwien.ac.at/sparql}
+      SEPSES_SPARQL_TIMEOUT: ${SEPSES_SPARQL_TIMEOUT:-20}
+      # --- Cadangan: Virtuoso lokal (issue #1) ---
+      SEPSES_ENABLE_LOCAL_FALLBACK: "true"
+      SEPSES_LOCAL_ENDPOINT: "http://virtuoso:8890/sparql"
+      SEPSES_LOCAL_GRAPH: "http://sepses.local"
+      # --- Dataset (di-mount read-only di bawah) ---
+      MITRE_DATASET_PATH: /app/data/enterprise-attack.json
+      LOGS_FILE: /app/data/sample_logs.txt
+      # --- Vector DB log / ChromaDB (issue #2) ---
+      # Diisi OTOMATIS saat backend start (chunk->embed->ingest dari LOGS_FILE) dan dipersistenkan lewat named volume "chroma_db" agar tidak embed ulang tiap rebuild.
+      CHROMA_DIR: /app/vector_db
+      # --- CORS: izinkan frontend ---
+      FRONTEND_ORIGINS: ${FRONTEND_ORIGINS:-http://localhost:3000}
+    volumes:
+      - ./data:/app/data:ro
+      - chroma_db:/app/vector_db            
+      - chroma_model_cache:/root/.cache/chroma  
+    ports:
+      - "8000:8000"
+    # Agar Ollama yang jalan di host (localhost:11434) bisa diakses dari container.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sepses-frontend
+    depends_on:
+      - backend
+    environment:
+      NODE_ENV: production
+      BACKEND_URL: "http://backend:8000"
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+volumes:
+  virtuoso_db:
+  chroma_db:            
+  chroma_model_cache:

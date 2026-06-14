@@ -1,0 +1,236 @@
+from __future__ import annotations
+import traceback
+from typing import Any, Dict, List, Optional
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+from backend.config import DEFAULT_MODEL, FRONTEND_ORIGINS, SUPPORTED_MODEL_NAMES
+from backend.pipeline.orchestrator import answer, compare
+from backend.sources import logs as logs_source
+from backend.sources import sparql as sparql_source
+
+app = FastAPI(title="SEPSES CSKG Chatbot API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[o.strip() for o in FRONTEND_ORIGINS.split(",") if o.strip()],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+class HistoryItem(BaseModel):
+    role: str
+    content: str
+
+
+class ChatRequest(BaseModel):
+    message: str
+    mode: str = "threat_intelligence"  # threat_intelligence | log_analysis | combined
+    sessionId: Optional[str] = None
+    history: List[HistoryItem] = []
+    model: Optional[str] = None
+
+
+class RDFTriple(BaseModel):
+    subject: str
+    predicate: str
+    object: str
+    source: Optional[str] = None
+
+
+class ChatResponse(BaseModel):
+    message: str
+    triples: List[RDFTriple] = []
+    llmUsed: Optional[str] = None
+    sources: List[str] = []
+    method: Optional[str] = None
+    sparql: Optional[str] = None
+
+
+class CompareRequest(BaseModel):
+    message: str
+    mode: str = "threat_intelligence"
+    sessionId: Optional[str] = None
+    history: List[HistoryItem] = []
+    models: Optional[List[str]] = None
+
+
+class CompareAnswer(BaseModel):
+    model: str
+    llmUsed: Optional[str] = None
+    message: str
+    ok: bool = True
+    error: Optional[str] = None
+    latencySec: Optional[float] = None
+
+
+class CompareResponse(BaseModel):
+    question: str
+    mode: str
+    answers: List[CompareAnswer] = []
+    triples: List[RDFTriple] = []
+    sources: List[str] = []
+    method: Optional[str] = None
+    sparql: Optional[str] = None
+
+
+class LogUploadRequest(BaseModel):
+    content: str                       # satu atau banyak baris log (dipisah newline)
+    source: Optional[str] = "upload"   # label sumber untuk metadata
+    logType: Optional[str] = None      # paksa tipe; jika None -> auto-klasifikasi
+
+
+class LogUploadResponse(BaseModel):
+    ok: bool
+    inserted: int                      # jumlah chunk yang ditambahkan
+    backend: str
+    stats: Dict[str, int] = {}
+
+
+class LogStatsResponse(BaseModel):
+    backend: str
+    types: List[str]
+    stats: Dict[str, int] = {}
+
+
+class LogResetResponse(BaseModel):
+    ok: bool
+    backend: str
+    stats: Dict[str, int] = {}
+
+
+class KgRequest(BaseModel):
+    question: str
+    model: Optional[str] = None
+
+
+class KgResponse(BaseModel):
+    question: str
+    method: Optional[str] = None          # regex | llm | fallback | fallback_keyword
+    sparql: Optional[str] = None
+    columns: List[str] = []               
+    rows: List[Dict[str, Any]] = []       
+    rowCount: int = 0
+    context: str = ""                     
+    ok: bool = False
+
+
+@app.get("/")
+def root() -> Dict[str, str]:
+    return {"service": "SEPSES CSKG Chatbot API", "docs": "/docs"}
+
+
+@app.get("/api/health")
+def health() -> Dict[str, str]:
+    return {"status": "ok"}
+
+
+@app.get("/api/models")
+def models() -> Dict[str, Any]:
+    return {"models": list(SUPPORTED_MODEL_NAMES), "default": DEFAULT_MODEL}
+
+
+@app.post("/api/chat", response_model=ChatResponse)
+def chat(req: ChatRequest) -> Dict[str, Any]:
+    try:
+        return answer(
+            req.message,
+            mode=req.mode,
+            model=req.model or DEFAULT_MODEL,
+            history=[h.model_dump() for h in req.history],
+        )
+    except Exception as e:  # biar nda reply 500 mentah ke UI
+        traceback.print_exc()
+        return {
+            "message": f"⚠️ Gagal memproses permintaan: {e}",
+            "triples": [],
+            "llmUsed": req.model or DEFAULT_MODEL,
+            "sources": [],
+            "method": None,
+            "sparql": None,
+        }
+
+@app.post("/api/compare", response_model=CompareResponse)
+def compare_models(req: CompareRequest) -> Dict[str, Any]:
+    try:
+        return compare(
+            req.message,
+            models=req.models or list(SUPPORTED_MODEL_NAMES),
+            mode=req.mode,
+            history=[h.model_dump() for h in req.history],
+        )
+    except Exception as e:  
+        traceback.print_exc()
+        return {
+            "question": req.message,
+            "mode": req.mode,
+            "answers": [],
+            "triples": [],
+            "sources": [],
+            "method": None,
+            "sparql": None,
+        }
+
+@app.post("/api/logs", response_model=LogUploadResponse)
+def upload_logs(req: LogUploadRequest) -> Dict[str, Any]:
+    
+    try:
+        inserted = logs_source.insert_log(
+            req.source or "upload", req.content, log_type=req.logType
+        )
+        return {
+            "ok": inserted > 0,
+            "inserted": inserted,
+            "backend": logs_source.backend_label(),
+            "stats": logs_source.log_stats(),
+        }
+    except Exception as e:
+        traceback.print_exc()
+        return {"ok": False, "inserted": 0, "backend": logs_source.backend_label(), "stats": {}}
+
+
+@app.get("/api/logs/stats", response_model=LogStatsResponse)
+def logs_stats() -> Dict[str, Any]:
+    """Ringkasan jumlah log per-tipe di vector DB."""
+    return {
+        "backend": logs_source.backend_label(),
+        "types": list(logs_source.LOG_TYPES),
+        "stats": logs_source.log_stats(),
+    }
+
+
+@app.delete("/api/logs", response_model=LogResetResponse)
+def reset_logs() -> Dict[str, Any]:
+    try:
+        stats = logs_source.reset_logs()
+        return {"ok": True, "backend": logs_source.backend_label(), "stats": stats}
+    except Exception:
+        traceback.print_exc()
+        return {"ok": False, "backend": logs_source.backend_label(), "stats": logs_source.log_stats()}
+
+
+@app.post("/api/kg", response_model=KgResponse)
+def kg_query(req: KgRequest) -> Dict[str, Any]:
+    """Modul retrieval KG (Issue #3): NL -> SPARQL -> eksekusi -> konteks terstruktur.
+    Dipakai untuk uji/demonstrasi NL2SPARQL secara terpisah dari /api/chat."""
+
+    try:
+        res = sparql_source.kg_retrieve(req.question, model=req.model or DEFAULT_MODEL)
+        return {
+            "question": res["question"],
+            "method": res["method"],
+            "sparql": res["sparql"],
+            "columns": res["columns"],
+            "rows": res["rows"],
+            "rowCount": res["row_count"],
+            "context": res["context"],
+            "ok": res["ok"],
+        }
+    except Exception as e:
+        traceback.print_exc()
+        return {
+            "question": req.question, "method": None, "sparql": None, "columns": [],
+            "rows": [], "rowCount": 0, "context": f"⚠️ Gagal: {e}", "ok": False,
+        }

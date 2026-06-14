@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0b1220;
+  --foreground: #f8fafc;
+
+  --card: #111827;
+  --card-hover: #1f2937;
+
+  --primary: #8b5cf6;
+  --secondary: #3b82f6;
+
+  --muted: #94a3b8;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family:
+    Inter,
+    system-ui,
+    sans-serif;
+
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Selection */
+
+::selection {
+  background: rgba(139, 92, 246, 0.25);
+}
+
+/* Markdown */
+
+.prose {
+  color: #e5e7eb;
+}
+
+.prose p {
+  margin-bottom: 0.75rem;
+}
+
+.prose strong {
+  color: #ffffff;
+}
+
+.prose code {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 6px;
+  border-radius: 8px;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.prose td,
+.prose th {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Reusable */
+
+.glass {
+  background: rgba(17, 24, 39, 0.8);
+  backdrop-filter: blur(20px);
+}
+
+.card-modern {
+  background: #111827;
+  border-radius: 20px;
+}
+
+.shadow-modern {
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(255, 255, 255, 0.03);
+}
