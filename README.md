@@ -234,83 +234,44 @@ python -m evaluation.run_eval
 Kel9-LLM-Chatbot-SEPSESCSKG/
 
 ├── frontend/                  # Next.js 15 app
-
 │   └── src/app/
-
 │       ├── chat/              # Main chat interface
-
 │       ├── analysis/          # Evaluation dashboard & charts
-
 │       ├── graph/             # KG triple visualization
-
 │       └── sidebar/           # Session nav & model picker
-
 │
-
 ├── backend/                   # FastAPI application
-
 │   ├── main.py                # Entry point, REST endpoints
-
 │   ├── config.py              # Env vars & model config
-
 │   ├── patterns.py            # Regex: CVE/CWE/entity detection
-
 │   ├── pipeline/
-
 │   │   ├── orchestrator.py    # Query router + RAG orchestration
-
 │   │   └── prompts.py         # System prompts per mode
-
 │   ├── sources/
-
 │   │   ├── sparql.py          # SPARQL client (public + Virtuoso)
-
 │   │   ├── mitre.py           # MITRE ATT&CK (mitreattack-python)
-
 │   │   └── logs.py            # ChromaDB log ingestion & search
-
 │   └── llm/
-
 │       └── llm_models.py      # Gemini + Ollama via LangChain
-
 │
-
 ├── evaluation/                # LLM benchmarking scripts
-
 │   ├── questions.py           # 10-question evaluation set
-
 │   ├── scoring.py             # Multi-metric scorer (0–2 scale)
-
 │   ├── llm_eval.py            # Main eval pipeline
-
 │   ├── run_eval.py            # CLI entry point
-
 │   └── report_generator.py   # Markdown report generator
-
 │
-
 ├── data/
-
 │   ├── cskg_dumps/            # TTL dumps for Virtuoso (place here)
-
 │   ├── enterprise-attack.json # MITRE ATT&CK (after download)
-
 │   └── sample_logs.txt        # Sample security logs for ChromaDB
-
 │
-
 ├── scripts/
-
 │   ├── download_mitre.py      # Download MITRE ATT&CK JSON
-
 │   ├── virtuoso_init.sh       # Loads TTL dumps into Virtuoso
-
 │   └── generate_schema_report.py
-
 │
-
 ├── docker-compose.yml
-
 └── .env.example
 
 ## Dataset & Knowledge Sources
