@@ -152,7 +152,50 @@ Starts four services: `virtuoso`, `virtuoso-loader`, `backend` (port 8000), and 
 
 -
 ---
+## Running Locally (Development)
 
+> You will need **5 terminals** running simultaneously. Do not close terminals 2, 3, and 4.
+
+### Terminal 1 — Setup & Frontend Install
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r backend/requirements.txt
+python scripts/download_mitre.py
+cd frontend
+npm install
+```
+
+### Terminal 2 — Docker (keep open)
+
+```bash
+docker compose up --build
+```
+
+### Terminal 3 — Ollama Server (keep open)
+
+```bash
+ollama serve
+```
+
+### Terminal 4 — Ollama Model (keep open)
+
+```bash
+ollama run llama3.2:3b
+```
+
+> Terminals 3 & 4 can be separate tabs in the same terminal app.
+
+### Terminal 5 — Frontend Dev Server (keep open)
+
+```bash
+npm run dev
+```
+
+> Alternatively, run `npm run dev` as a tab in Terminal 1 after `npm install` finishes.
+
+---
 ## API Endpoints
 
 | Method | Endpoint | Description |
@@ -188,6 +231,87 @@ python -m evaluation.run_eval
 > ↑ Higher hallucination score = less hallucination (better). Gemini wins on accuracy, completeness, and speed. Llama is better for air-gapped/offline deployments at zero API cost.
 
 ---
+Kel9-LLM-Chatbot-SEPSESCSKG/
+
+├── frontend/                  # Next.js 15 app
+
+│   └── src/app/
+
+│       ├── chat/              # Main chat interface
+
+│       ├── analysis/          # Evaluation dashboard & charts
+
+│       ├── graph/             # KG triple visualization
+
+│       └── sidebar/           # Session nav & model picker
+
+│
+
+├── backend/                   # FastAPI application
+
+│   ├── main.py                # Entry point, REST endpoints
+
+│   ├── config.py              # Env vars & model config
+
+│   ├── patterns.py            # Regex: CVE/CWE/entity detection
+
+│   ├── pipeline/
+
+│   │   ├── orchestrator.py    # Query router + RAG orchestration
+
+│   │   └── prompts.py         # System prompts per mode
+
+│   ├── sources/
+
+│   │   ├── sparql.py          # SPARQL client (public + Virtuoso)
+
+│   │   ├── mitre.py           # MITRE ATT&CK (mitreattack-python)
+
+│   │   └── logs.py            # ChromaDB log ingestion & search
+
+│   └── llm/
+
+│       └── llm_models.py      # Gemini + Ollama via LangChain
+
+│
+
+├── evaluation/                # LLM benchmarking scripts
+
+│   ├── questions.py           # 10-question evaluation set
+
+│   ├── scoring.py             # Multi-metric scorer (0–2 scale)
+
+│   ├── llm_eval.py            # Main eval pipeline
+
+│   ├── run_eval.py            # CLI entry point
+
+│   └── report_generator.py   # Markdown report generator
+
+│
+
+├── data/
+
+│   ├── cskg_dumps/            # TTL dumps for Virtuoso (place here)
+
+│   ├── enterprise-attack.json # MITRE ATT&CK (after download)
+
+│   └── sample_logs.txt        # Sample security logs for ChromaDB
+
+│
+
+├── scripts/
+
+│   ├── download_mitre.py      # Download MITRE ATT&CK JSON
+
+│   ├── virtuoso_init.sh       # Loads TTL dumps into Virtuoso
+
+│   └── generate_schema_report.py
+
+│
+
+├── docker-compose.yml
+
+└── .env.example
 
 ## Dataset & Knowledge Sources
 
