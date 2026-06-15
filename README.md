@@ -231,6 +231,9 @@ python -m evaluation.run_eval
 > ↑ Higher hallucination score = less hallucination (better). Gemini wins on accuracy, completeness, and speed. Llama is better for air-gapped/offline deployments at zero API cost.
 
 ---
+## Project Structure
+
+```text
 Kel9-LLM-Chatbot-SEPSESCSKG/
 
 ├── frontend/                  # Next.js 15 app
@@ -248,31 +251,32 @@ Kel9-LLM-Chatbot-SEPSESCSKG/
 │   │   ├── orchestrator.py    # Query router + RAG orchestration
 │   │   └── prompts.py         # System prompts per mode
 │   ├── sources/
-│   │   ├── sparql.py          # SPARQL client (public + Virtuoso)
-│   │   ├── mitre.py           # MITRE ATT&CK (mitreattack-python)
-│   │   └── logs.py            # ChromaDB log ingestion & search
+│   │   ├── sparql.py          # SPARQL client
+│   │   ├── mitre.py           # MITRE ATT&CK integration
+│   │   └── logs.py            # Log ingestion & search
 │   └── llm/
 │       └── llm_models.py      # Gemini + Ollama via LangChain
 │
 ├── evaluation/                # LLM benchmarking scripts
-│   ├── questions.py           # 10-question evaluation set
-│   ├── scoring.py             # Multi-metric scorer (0–2 scale)
-│   ├── llm_eval.py            # Main eval pipeline
-│   ├── run_eval.py            # CLI entry point
-│   └── report_generator.py   # Markdown report generator
+│   ├── questions.py
+│   ├── scoring.py
+│   ├── llm_eval.py
+│   ├── run_eval.py
+│   └── report_generator.py
 │
 ├── data/
-│   ├── cskg_dumps/            # TTL dumps for Virtuoso (place here)
-│   ├── enterprise-attack.json # MITRE ATT&CK (after download)
-│   └── sample_logs.txt        # Sample security logs for ChromaDB
+│   ├── cskg_dumps/            # Virtuoso TTL dumps
+│   ├── enterprise-attack.json # MITRE ATT&CK data
+│   └── sample_logs.txt
 │
 ├── scripts/
-│   ├── download_mitre.py      # Download MITRE ATT&CK JSON
-│   ├── virtuoso_init.sh       # Loads TTL dumps into Virtuoso
+│   ├── download_mitre.py
+│   ├── virtuoso_init.sh
 │   └── generate_schema_report.py
 │
 ├── docker-compose.yml
 └── .env.example
+```
 
 ## Dataset & Knowledge Sources
 
