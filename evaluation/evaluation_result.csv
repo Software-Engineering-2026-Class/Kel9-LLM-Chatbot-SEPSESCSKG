@@ -1,0 +1,756 @@
+question_id;question;category;subcategory;mode;model;llm_used;accuracy;hallucination;relevance;completeness;kg_grounding;fabricated_cves;is_error;latency_sec;llm_ok;llm_error;kg_triple_count;sources;sparql_used;answer
+TI-01;Show information about CVE-2021-44228;threat_intelligence;vulnerability_analysis;threat_intelligence;gemini-2.5-flash;gemini-2.5-flash;1;1;0;1;2;;FALSE;10896;TRUE;;0;SEPSES CSKG (publik);"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+PREFIX cve:  <http://w3id.org/sepses/vocab/ref/cve#>
+PREFIX cwe:  <http://w3id.org/sepses/vocab/ref/cwe#>
+PREFIX capec: <http://w3id.org/sepses/vocab/ref/capec#>
+PREFIX cpe:  <http://w3id.org/sepses/vocab/ref/cpe#>
+PREFIX cvss: <http://w3id.org/sepses/vocab/ref/cvss#>
+
+SELECT DISTINCT ?description ?publishedDate ?cweName ?score WHERE {
+  ?cve cve:id ""CVE-2021-44228"" .
+  OPTIONAL { ?cve cve:description ?description . }
+  OPTIONAL { ?cve cve:publishedDate ?publishedDate . }
+  OPTIONAL { ?cve cve:hasCWE ?cwe . ?cwe cwe:name ?cweName . }
+  OPTIONAL { ?cve cve:hasCVSS3BaseMetric ?m . ?m cvss:baseScore ?score . }
+} LIMIT 50";"Berdasarkan konteks data keamanan yang diberikan:
+
+Tidak ada informasi yang ditemukan mengenai CVE-2021-44228 dalam SEPSES CSKG. Konteks secara spesifik menyatakan:
+
+*   ""Tidak ada data ditemukan untuk CVE-2021-44228 (atau endpoint publik tidak tersedia).""
+*   ""Tidak ada rantai serangan di KG untuk CVE-2021-44228.""
+
+Oleh karena itu, saya tidak dapat menampilkan detail seperti deskripsi kerentanan, CWE, CAPEC, skor CVSS, atau rantai serangan terkait CVE-2021-44228 dari data yang tersedia."
+TI-01;Show information about CVE-2021-44228;threat_intelligence;vulnerability_analysis;threat_intelligence;ollama:llama3.2:3b;ollama:llama3.2:3b;2;2;1;1;4;;FALSE;51159;TRUE;;0;SEPSES CSKG (publik);"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+PREFIX cve:  <http://w3id.org/sepses/vocab/ref/cve#>
+PREFIX cwe:  <http://w3id.org/sepses/vocab/ref/cwe#>
+PREFIX capec: <http://w3id.org/sepses/vocab/ref/capec#>
+PREFIX cpe:  <http://w3id.org/sepses/vocab/ref/cpe#>
+PREFIX cvss: <http://w3id.org/sepses/vocab/ref/cvss#>
+
+SELECT DISTINCT ?description ?publishedDate ?cweName ?score WHERE {
+  ?cve cve:id ""CVE-2021-44228"" .
+  OPTIONAL { ?cve cve:description ?description . }
+  OPTIONAL { ?cve cve:publishedDate ?publishedDate . }
+  OPTIONAL { ?cve cve:hasCWE ?cwe . ?cwe cwe:name ?cweName . }
+  OPTIONAL { ?cve cve:hasCVSS3BaseMetric ?m . ?m cvss:baseScore ?score . }
+} LIMIT 50";"Berikut informasi tentang CVE-2021-44228 berdasarkan data yang tersedia:
+
+**CVE-ID:** CVE-2021-44228
+**Nama Lengkap:** Apache Log4j Vulnerability (Apache Log4j 2.15.0 dan di bawah)
+**Penyebut:** Apache Log4j 2.15.0 dan di bawah
+
+Informasi tentang CVE ini tersedia pada SEPSES CSKG, namun tidak ada data ditemukan untuk endpoint publik yang terkait dengan CVE-2021-44228.
+
+Namun, berdasarkan informasi dari MITRE ATT&CK, CVE-2021-44228 diklasifikasikan sebagai ""Apache Log4j Vulnerability"" dan dianggap sebagai sebuah ancaman keamanan yang signifikan.
+
+**Rantai Serangan:**
+Tidak ada rantai serangan yang ditemukan untuk CVE-2021-44228 pada KG.
+
+**Langkah Mitigasi:**
+
+1. Perbarui Apache Log4j ke versi 2.16.0 atau di atas.
+2. Lakukan pengecekan sistem untuk memastikan tidak ada log4j.dll yang terinstal secara tidak sengaja.
+3. Gunakan opsi ""-Djava.util.logging.class.name=org.apache.logging.log4j.core.LoggerContext"" saat menjalankan aplikasi.
+
+Perlu diingat bahwa informasi ini berdasarkan keterbatasan konteks dan mungkin tidak lengkap atau akurat."
+TI-02;Find attack patterns related to SQL Injection;threat_intelligence;attack_pattern_analysis;threat_intelligence;gemini-2.5-flash;gemini-2.5-flash;2;2;2;2;6667;;FALSE;21384;TRUE;;0;;;"Meskipun tidak ada data spesifik dari log atau entri CVE/CPE yang diberikan dalam konteks ini, sebagai analis keamanan siber dengan akses ke SEPSES CSKG (CVE/CWE/CAPEC/CPE/CVSS) dan MITRE ATT&CK, saya dapat mengidentifikasi pola serangan umum (attack patterns) dan kelemahan terkait SQL Injection berdasarkan definisi dalam kerangka kerja tersebut.
+
+Berikut adalah pola serangan dan kelemahan yang terkait dengan SQL Injection:
+
+### 1. Kelemahan Umum (CWE - Common Weakness Enumeration)
+
+Kelemahan utama yang mendasari SQL Injection adalah:
+*   **CWE-89: Improper Neutralization of Special Elements in an SQL Command ('SQL Injection')**
+    *   **Deskripsi:** Kelemahan ini terjadi ketika aplikasi membangun query SQL menggunakan input yang tidak divalidasi atau tidak disanitasi dengan benar dari pengguna. Karakter khusus dalam input pengguna dapat diinterpretasikan sebagai bagian dari perintah SQL, mengubah logika query yang dimaksudkan dan memungkinkan penyerang untuk mengeksekusi perintah SQL arbitrer.
+
+### 2. Pola Serangan Umum (CAPEC - Common Attack Pattern Enumeration and Classification)
+
+CAPEC mengkategorikan berbagai cara penyerang dapat mengeksploitasi kelemahan SQL Injection. Pola serangan utamanya adalah:
+*   **CAPEC-7: SQL Injection**
+    *   **Deskripsi:** Pola serangan ini melibatkan penyisipan atau ""injeksi"" perintah SQL melalui input data dari klien ke aplikasi web. Ketika aplikasi memproses input ini tanpa validasi atau sanitasi yang memadai, perintah SQL yang disisipkan dapat dieksekusi oleh database.
+    *   **Variasi Umum:**
+        *   **CAPEC-100: Blind SQL Injection:** Penyerang tidak menerima data langsung dari database, tetapi menyimpulkan informasi berdasarkan respons aplikasi (misalnya, waktu respons atau pesan error generik).
+        *   **CAPEC-102: Error-based SQL Injection:** Penyerang memicu error database yang mengungkapkan informasi sensitif atau struktur database.
+        *   **CAPEC-104: Union-based SQL Injection:** Penyerang menggunakan operator `UNION` untuk menggabungkan hasil query mereka dengan query asli aplikasi, memungkinkan pengambilan data dari tabel lain.
+        *   **CAPEC-105: Stacked Queries SQL Injection:** Penyerang menyisipkan beberapa perintah SQL yang dipisahkan oleh titik koma (jika database mendukungnya) untuk mengeksekusi perintah tambahan.
+        *   **CAPEC-106: Out-of-Band SQL Injection:** Penyerang menggunakan kemampuan database untuk membuat permintaan jaringan eksternal (misalnya, DNS lookup, HTTP request) untuk mengeksfiltrasi data atau memverifikasi injeksi.
+
+### 3. Teknik dan Taktik Penyerang (MITRE ATT&CK)
+
+SQL Injection sering digunakan sebagai teknik awal dalam rantai serangan yang lebih besar. Berikut adalah beberapa taktik dan teknik MITRE ATT&CK yang relevan:
+
+*   **Taktik: Initial Access (TA0001)**
+    *   **T1190: Exploit Public-Facing Application:** SQL Injection adalah metode umum untuk mengeksploitasi aplikasi web yang menghadap publik untuk mendapatkan akses awal ke sistem atau data.
+
+*   **Taktik: Execution (TA0002)**
+    *   **T1059: Command and Scripting Interpreter:** Jika penyerang berhasil mendapatkan hak akses yang cukup melalui SQL Injection (misalnya, `xp_cmdshell` di MSSQL), mereka dapat mengeksekusi perintah sistem operasi arbitrer.
+
+*   **Taktik: Persistence (TA0003)**
+    *   **T1133: External Remote Services:** Setelah mendapatkan akses, penyerang mungkin menggunakan SQL Injection untuk membuat atau memodifikasi akun pengguna database atau sistem, atau menginstal backdoor untuk mempertahankan akses.
+
+*   **Taktik: Defense Evasion (TA0005)**
+    *   **T1027: Obfuscated Files or Information:** Penyerang dapat mengaburkan payload SQL Injection mereka (misalnya, menggunakan encoding, komentar SQL) untuk menghindari deteksi oleh WAF atau sistem deteksi intrusi.
+
+*   **Taktik: Discovery (TA0007)**
+    *   **T1083: File and Directory Discovery:** Melalui SQL Injection, penyerang dapat mencoba membaca file sistem atau direktori yang dapat diakses oleh database.
+    *   **T1046: Network Service Discovery:** Penyerang dapat mencoba mengidentifikasi layanan jaringan lain yang dapat diakses dari server database yang dikompromikan.
+
+*   **Taktik: Collection (TA0009)**
+    *   **T1005: Data from Local System:** Mengambil data sensitif langsung dari database (misalnya, kredensial pengguna, informasi pribadi).
+
+*   **Taktik: Exfiltration (TA0010)**
+    *   **T1041: Exfiltration Over C2 Channel:** Data yang dicuri melalui SQL Injection dapat dieksfiltrasi melalui saluran komunikasi yang sudah ada (misalnya, respons HTTP aplikasi).
+    *   **T1048: Exfiltration Over Alternative Protocol:** Dalam kasus Blind SQL Injection atau Out-of-Band SQL Injection, data dapat dieksfiltrasi melalui protokol alternatif seperti DNS atau HTTP ke server yang dikendalikan penyerang.
+
+### Langkah Mitigasi yang Dapat Dilakukan
+
+Untuk mencegah dan mengurangi risiko SQL Injection, langkah-langkah berikut sangat direkomendasikan:
+
+1.  **Gunakan Prepared Statements dengan Parameterized Queries:** Ini adalah mitigasi paling efektif. Daripada menggabungkan string SQL dengan input pengguna, gunakan placeholder untuk nilai input. Database akan membedakan antara kode SQL dan data input.
+    *   **Aksi:** Terapkan `PreparedStatement` di Java, `SqlCommand` dengan parameter di .NET, atau fungsi serupa di bahasa pemrograman lain.
+
+2.  **Validasi Input yang Ketat (Whitelisting):**
+    *   **Aksi:** Validasi semua input pengguna di sisi server. Gunakan whitelisting (hanya izinkan karakter atau format yang diketahui aman) daripada blacklisting (mencoba memblokir karakter berbahaya). Pastikan tipe data input sesuai dengan yang diharapkan.
+
+3.  **Prinsip Hak Akses Terkecil (Least Privilege):**
+    *   **Aksi:** Konfigurasi akun database yang digunakan oleh aplikasi hanya dengan hak akses minimum yang diperlukan untuk menjalankan fungsinya. Hindari memberikan hak akses `DBA` atau `xp_cmdshell` kepada akun aplikasi.
+
+4.  **Penanganan Error yang Aman:**
+    *   **Aksi:** Jangan pernah menampilkan pesan error database yang detail kepada pengguna akhir. Gunakan pesan error generik dan log error detail di sisi server untuk debugging.
+
+5.  **Penggunaan Stored Procedures (dengan hati-hati):**
+    *   **Aksi:** Stored procedures dapat membantu mencegah SQL Injection jika diimplementasikan dengan benar menggunakan parameterized queries di dalamnya. Namun, jika stored procedure dibangun dengan menggabungkan string, mereka juga rentan.
+
+6.  **Web Application Firewall (WAF):**
+    *   **Aksi:** Terapkan WAF sebagai lapisan pertahanan tambahan untuk mendeteksi dan memblokir upaya SQL Injection yang diketahui. WAF dapat memberikan perlindungan sementara atau pelengkap, tetapi bukan pengganti untuk pengkodean yang aman.
+
+7.  **Pembaruan dan Patching Rutin:**
+    *   **Aksi:** Pastikan sistem operasi, server database, dan kerangka kerja aplikasi selalu diperbarui dengan patch keamanan terbaru untuk mengatasi kerentanan yang diketahui.
+
+8.  **Audit Keamanan dan Pengujian Penetrasi:**
+    *   **Aksi:** Lakukan audit kode secara teratur dan pengujian penetrasi (pentest) untuk mengidentifikasi dan memperbaiki kerentanan SQL Injection sebelum dieksploitasi oleh penyerang."
+TI-02;Find attack patterns related to SQL Injection;threat_intelligence;attack_pattern_analysis;threat_intelligence;ollama:llama3.2:3b;ollama:llama3.2:3b;2;1;2;2;6667;CVE-2022-1234;FALSE;46587;TRUE;;0;;;"Berikut adalah beberapa contoh attack pattern terkait SQL Injection yang dapat ditemukan pada MITRE ATT&CK:
+
+1. **T1210: Privilege Escalation** - Attack Pattern ini melibatkan eksploitasi kerentanan untuk mendapatkan akses ke data atau sistem yang lebih tinggi daripada akses awal.
+2. **T1204: SQL Injection** - Attack Pattern ini melibatkan penggunaan SQL Injection untuk menyerang database dan mendapatkan akses tidak sah ke data.
+3. **T1211: Privilege Escalation via SQL Injection** - Attack Pattern ini melibatkan eksploitasi kerentanan SQL Injection untuk mendapatkan akses ke data atau sistem yang lebih tinggi daripada akses awal.
+
+Untuk menghindari attack pattern ini, penting untuk melakukan verifikasi input pengguna dan memastikan bahwa semua koneksi ke database dilakukan dengan aman menggunakan protokol SSL/TLS. Selain itu, perlu dilakukan pembaruan dan patching sistem secara teratur untuk memperbarui keamanan dan menghindari kerentanan yang dapat dieksploitasi oleh penyerang.
+
+Rantai CVE -> CWE -> CAPEC:
+
+* CVE: SQL Injection (misalnya CVE-2022-1234)
+* CWE: 89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection') (CWE-89)
+* CAPEC: SQL Injection Attack Pattern (CAPEC-86)
+
+Langkah mitigasi:
+1. Gunakan parameterized queries atau prepared statements untuk menghindari penggunaan string langsung dalam query SQL.
+2. Pastikan bahwa semua koneksi ke database dilakukan dengan aman menggunakan protokol SSL/TLS.
+3. Lakukan pembaruan dan patching sistem secara teratur untuk memperbarui keamanan dan menghindari kerentanan yang dapat dieksploitasi oleh penyerang."
+TI-03;Find techniques used by ransomware groups;threat_intelligence;malware_investigation;threat_intelligence;gemini-2.5-flash;gemini-2.5-flash;2;2;1;2;6667;;FALSE;574;TRUE;;0;MITRE ATT&CK;;"Berdasarkan konteks data keamanan yang diberikan, berikut adalah teknik yang digunakan oleh kelompok ransomware:
+
+1.  **Medusa Ransomware (MITRE ATT&CK Software S1244)**
+    *   **Teknik yang digunakan:**
+        *   Living off the land techniques
+        *   Penggunaan perangkat lunak manajemen jarak jauh (remote management software)
+
+2.  **BlackByte 2.0 Ransomware (MITRE ATT&CK Software S1181)**
+    *   **Keterbatasan Konteks:** Deskripsi yang diberikan terpotong (""does n..."") sehingga tidak ada informasi spesifik mengenai teknik yang digunakan.
+
+3.  **BlackByte Ransomware (MITRE ATT&CK Software S1180)**
+    *   **Keterbatasan Konteks:** Deskripsi yang diberikan terpotong (""decryp..."") sehingga tidak ada informasi spesifik mengenai teknik yang digunakan, selain penggunaan ""common key for infections"" yang lebih merujuk pada karakteristik implementasi daripada teknik ATT&CK.
+
+4.  **INC Ransomware (MITRE ATT&CK Software S1139)**
+    *   **Keterbatasan Konteks:** Deskripsi yang diberikan terpotong (""can employ p..."") sehingga tidak ada informasi spesifik mengenai teknik yang digunakan.
+
+**Ringkasan Tindakan:**
+Untuk mendapatkan pemahaman yang lebih komprehensif mengenai teknik yang digunakan oleh BlackByte 2.0, BlackByte, dan INC Ransomware, diperlukan akses ke deskripsi lengkap dari entitas MITRE ATT&CK Software (S1181, S1180, S1139) yang relevan."
+TI-03;Find techniques used by ransomware groups;threat_intelligence;malware_investigation;threat_intelligence;ollama:llama3.2:3b;ollama:llama3.2:3b;1;2;1;1;3333;;FALSE;5133;TRUE;;0;MITRE ATT&CK;;"Berikut adalah beberapa teknik yang digunakan oleh grup-grup ransomware:
+
+1. **Living Off The Land (LOTL)**: Medusa Ransomware dan BlackByte 2.0 Ransomware menggunakan teknik LOTL, yaitu menggunakan aplikasi dan perintah sistem yang sudah ada pada komputer korban untuk melakukan aksi keamanan.
+2. **Remote Management Software**: Medusa Ransomware dan BlackByte 2.0 Ransomware juga menggunakan remote management software untuk mengontrol komputer korban dan melakukan aksi keamanan.
+3. **Universal Decryption Key**: BlackByte Ransomware menggunakan universal decryption key yang sama untuk semua infeksi, sehingga membuatnya lebih mudah untuk mendecrypt file korban.
+
+Berikut adalah beberapa langkah mitigasi:
+
+1. **Perbarui sistem operasi dan aplikasi**: Pastikan komputer korban memiliki perbaruan terbaru tentang sistem operasi dan aplikasi yang digunakan.
+2. **Gunakan antivirus yang efektif**: Gunakan antivirus yang efektif untuk mendeteksi dan menghilangkan malware.
+3. **Jaga keamanan remote**: Pastikan bahwa remote management software yang digunakan memiliki keamanan yang baik dan tidak dapat diakses oleh sumber yang tidak diinginkan.
+4. **Simpan backup file**: Simpan backup file secara teratur untuk memastikan bahwa data korban tetap aman jika komputer korban terinfeksi malware.
+
+Namun, perlu diingat bahwa ransomware seringkali menggunakan teknik-teknik yang canggih dan sulit untuk mendeteksi, sehingga penting untuk selalu berhati-hati dan memantau keamanan komputer secara teratur."
+TI-04;Find relationships between CVE and CWE;threat_intelligence;vulnerability_relationship;threat_intelligence;gemini-2.5-flash;gemini-2.5-flash;2;1;1;2;10;CVE-2023-1234;FALSE;8456;TRUE;;0;Log keamanan lokal (ChromaDB (vector));;"Berdasarkan konteks data log yang diberikan, tidak ada entitas spesifik seperti CVE-ID atau CWE-ID yang teridentifikasi secara langsung.
+
+Log yang tersedia mencakup:
+*   **[1] Malware signature detected: Trojan.GenericKD in C:\Windows\Temp\svchost.exe**
+*   **[2] segfault at 0 ip 00007f error 4 in libc.so**
+*   **[3] SQL injection attempt detected in GET parameter**
+
+Untuk dapat menemukan hubungan antara CVE dan CWE, kami memerlukan informasi spesifik mengenai:
+1.  **CVE-ID:** Identifikasi kerentanan spesifik yang telah dipublikasikan (misalnya, CVE-2023-1234).
+2.  **CWE-ID:** Identifikasi kelemahan perangkat lunak umum yang terkait dengan kerentanan tersebut (misalnya, CWE-89 untuk SQL Injection, CWE-119 untuk Buffer Overflow).
+
+**Keterbatasan Konteks:**
+Konteks log yang diberikan hanya mendeskripsikan insiden atau aktivitas mencurigakan (deteksi malware, segfault, percobaan SQL injection) dan bukan kerentanan spesifik yang telah diidentifikasi dan diberi CVE-ID. Oleh karena itu, tidak mungkin untuk secara langsung menemukan atau menjelaskan hubungan antara CVE dan CWE berdasarkan data ini.
+
+**Langkah Selanjutnya (Jika Data Tersedia):**
+Apabila kami memiliki CVE-ID yang relevan, kami dapat menggunakan data terstruktur dari SEPSES CSKG untuk:
+1.  **Mengidentifikasi CWE terkait:** Setiap CVE biasanya dipetakan ke satu atau lebih CWE yang menjelaskan akar penyebab kelemahan.
+2.  **Menjelaskan rantai CVE -> CWE -> CAPEC:**
+    *   **CVE:** Kerentanan spesifik dalam produk atau sistem.
+    *   **CWE:** Kategori kelemahan perangkat lunak yang mendasari CVE tersebut.
+    *   **CAPEC:** Pola serangan umum yang mengeksploitasi jenis kelemahan (CWE) tersebut.
+3.  **Memberikan langkah mitigasi:** Berdasarkan CWE dan CAPEC yang teridentifikasi, kami dapat merekomendasikan langkah-langkah mitigasi yang spesifik dan actionable untuk mencegah eksploitasi kerentanan tersebut.
+
+Tanpa CVE-ID atau CWE-ID yang eksplisit dalam log, kami tidak dapat melanjutkan analisis hubungan ini."
+TI-04;Find relationships between CVE and CWE;threat_intelligence;vulnerability_relationship;threat_intelligence;ollama:llama3.2:3b;ollama:llama3.2:3b;2;0;1;2;10;CVE-2019-1938, CVE-2019-1938;FALSE;58936;TRUE;;0;Log keamanan lokal (ChromaDB (vector));;"Berikut adalah analisis keamanan siber berdasarkan log relevan yang diberikan:
+
+**Deteksi Malware**
+
+* Log [1]: Malware signature detected dengan Trojan.GenericKD di C:\Windows\Temp\svchost.exe
+	+ CVE-ID: Tidak ada informasi tentang CVE-ID yang terkait dengan malware tersebut. Namun, dapat dilakukan pencarian online untuk menemukan CVE-ID yang relevan.
+	+ CWE: CWE-89 (Improper Neutralization of Inputs During Web Page Generation ('Cross-site Scripting') atau CWE-78 (Path Traversal) mungkin relevan, karena malware tersebut dapat berupa Trojan yang digunakan untuk melakukan akses tidak sah ke sistem.
+
+**Deteksi Segfault**
+
+* Log [2]: segfault at 0 ip 00007f error 4 in libc.so
+	+ CVE-ID: Tidak ada informasi tentang CVE-ID yang terkait dengan segfault tersebut. Namun, dapat dilakukan pencarian online untuk menemukan CVE-ID yang relevan.
+	+ CWE: Tidak ada informasi yang cukup untuk menentukan CWE yang relevan.
+
+**Deteksi SQL Injection**
+
+* Log [3]: SQL injection attempt detected in GET parameter
+	+ CVE-ID: CVE-2019-1938 (SQL injection vulnerability di MySQL) mungkin relevan, karena log tersebut menyebutkan deteksi SQL injection.
+	+ CWE: CWE-89 (Improper Neutralization of Inputs During Web Page Generation ('Cross-site Scripting') atau CWE-76 (SQL Injection) mungkin relevan.
+
+**Rantai CVE -> CWE -> CAPEC**
+
+* CVE-2019-1938 (SQL injection vulnerability di MySQL)
+	+ CWE-89 (Improper Neutralization of Inputs During Web Page Generation ('Cross-site Scripting'))
+	+ CAPEC-200 (SQL Injection Attack)
+
+**Langkah Mitigasi**
+
+1. Lakukan pengecekan sistem untuk memastikan bahwa semua input yang dikirimkan ke database telah diolah dengan benar.
+2. Pastikan bahwa semua perangkat lunak yang digunakan memiliki patch terbaru untuk mengatasi SQL injection vulnerability.
+3. Gunakan teknologi keamanan seperti WAF (Web Application Firewall) untuk melindungi sistem dari serangan SQL injection.
+
+Perlu diingat bahwa analisis ini hanya berdasarkan log relevan yang diberikan dan mungkin tidak mencakup semua aspek keamanan siber yang terkait."
+LOG-01;Analyze the failed SSH login attempts in the security logs;log_analysis;brute_force_detection;log_analysis;gemini-2.5-flash;gemini-2.5-flash;2;2;2;2;10;;FALSE;17408;TRUE;;0;Log keamanan lokal (ChromaDB (vector));;"Berdasarkan log keamanan yang diberikan, berikut adalah analisis terhadap upaya login SSH yang gagal:
+
+### 1. Identifikasi Log Relevan
+
+Dari log yang diberikan, hanya satu entri yang secara eksplisit mengindikasikan upaya login SSH yang gagal:
+
+*   **Log [1]**: `Failed password for root from 192.168.1.105 port 22 ssh2`
+
+Log lainnya tidak relevan untuk pertanyaan ""Analyze the failed SSH login attempts"":
+*   Log [2] (`Failed password for invalid user admin from 10.0.0.5 port 3389`) mengacu pada port 3389, yang merupakan port default untuk Remote Desktop Protocol (RDP), bukan SSH.
+*   Log [3] (`Authentication failure for user admin from 172.16.0.5`) adalah kegagalan autentikasi generik tanpa indikasi protokol SSH atau port 22.
+
+### 2. Analisis Log
+
+Log [1] menunjukkan upaya login yang gagal untuk pengguna `root` dari alamat IP `192.168.1.105` melalui port 22 (SSH).
+
+*   **Pengguna Target**: `root` (akun dengan hak istimewa tertinggi).
+*   **Alamat IP Sumber**: `192.168.1.105`.
+*   **Protokol/Port**: SSH (port 22).
+*   **Jenis Upaya**: Percobaan kata sandi yang gagal.
+
+Upaya login yang gagal, terutama yang menargetkan akun `root`, seringkali merupakan indikasi awal dari serangan *brute force* atau *password guessing* yang bertujuan untuk mendapatkan akses tidak sah.
+
+### 3. Korelasi dengan Kerangka Keamanan
+
+Dalam konteks SEPSES CSKG, kejadian ini akan dikorelasikan dengan pola serangan dan kelemahan yang relevan. Meskipun detail spesifik dari SEPSES CSKG tidak disediakan, secara umum, kejadian ini dapat dikorelasikan dengan:
+
+*   **MITRE ATT&CK**:
+    *   **TA0006 Credential Access**: Kategori umum untuk teknik yang digunakan penyerang untuk mencuri kredensial.
+    *   **T1110 Brute Force**: Teknik yang digunakan untuk menebak kredensial.
+        *   **T1110.001 Password Guessing**: Secara spesifik, upaya menebak kata sandi.
+*   **CAPEC (Common Attack Pattern Enumeration and Classification)**:
+    *   **CAPEC-49: Brute Force**: Serangan umum untuk menebak nilai yang benar.
+    *   **CAPEC-113: Brute Force Login**: Serangan spesifik untuk menebak kredensial login.
+*   **CWE (Common Weakness Enumeration)**:
+    *   **CWE-307: Improper Restriction of Excessive Authentication Attempts**: Jika sistem tidak memiliki mekanisme pembatasan upaya login yang gagal, ini adalah kelemahan yang memungkinkan serangan *brute force*.
+*   **CVE-ID & CVSS Score**: Tidak ada CVE-ID atau skor CVSS yang dapat diberikan langsung dari log upaya serangan ini. CVE-ID mengidentifikasi kerentanan spesifik dalam perangkat lunak, dan skor CVSS menilai tingkat keparahan kerentanan tersebut, bukan upaya serangan itu sendiri.
+
+### 4. Klasifikasi Severity
+
+**Severity: High**
+
+Meskipun hanya satu entri log yang diberikan, upaya login yang gagal yang menargetkan akun `root` melalui SSH adalah insiden dengan tingkat keparahan tinggi. Akun `root` adalah akun dengan hak istimewa tertinggi pada sistem, dan upaya untuk mengaksesnya secara tidak sah merupakan ancaman serius terhadap integritas dan kerahasiaan sistem. Jika ini adalah bagian dari serangkaian upaya yang lebih besar (yang tidak dapat dikonfirmasi dari satu log ini), tingkat keparahannya bisa menjadi Critical.
+
+### 5. Langkah Respons (Actionable)
+
+1.  **Verifikasi Sumber IP**:
+    *   Periksa apakah `192.168.1.105` adalah alamat IP internal yang sah atau eksternal. Jika internal, selidiki host tersebut untuk kemungkinan kompromi. Jika eksternal, ini adalah upaya akses tidak sah dari luar.
+2.  **Periksa Log Lebih Lanjut**:
+    *   Cari log keamanan lain dari `192.168.1.105` atau yang menargetkan akun `root` untuk mengidentifikasi pola atau frekuensi serangan.
+3.  **Implementasi/Verifikasi Mekanisme Brute Force Protection**:
+    *   Pastikan sistem memiliki mekanisme seperti `fail2ban` atau konfigurasi `sshd_config` (misalnya, `MaxAuthTries`, `LoginGraceTime`) untuk membatasi upaya login yang gagal dan memblokir alamat IP yang mencurigakan.
+4.  **Nonaktifkan Login Root Langsung via SSH**:
+    *   Jika belum dilakukan, nonaktifkan login langsung untuk pengguna `root` melalui SSH (`PermitRootLogin no` di `sshd_config`). Pengguna harus login dengan akun biasa terlebih dahulu, lalu menggunakan `sudo` untuk tugas administratif.
+5.  **Terapkan Autentikasi Berbasis Kunci SSH**:
+    *   Prioritaskan penggunaan autentikasi berbasis kunci SSH daripada kata sandi untuk meningkatkan keamanan.
+6.  **Perkuat Kebijakan Kata Sandi**:
+    *   Pastikan semua akun pengguna memiliki kata sandi yang kuat dan unik.
+7.  **Blokir Alamat IP (Jika Malicious)**:
+    *   Jika `192.168.1.105` diidentifikasi sebagai sumber serangan berbahaya, blokir alamat IP tersebut di firewall.
+8.  **Konfigurasi Peringatan**:
+    *   Pastikan sistem pemantauan keamanan dikonfigurasi untuk memberikan peringatan segera jika terjadi sejumlah upaya login SSH yang gagal dalam periode waktu tertentu.
+
+### 6. Keterbatasan Konteks
+
+*   **SEPSES CSKG**: Detail spesifik dari SEPSES CSKG tidak disediakan, sehingga korelasi dilakukan berdasarkan pemahaman umum tentang bagaimana CSKG akan mengklasifikasikan insiden semacam ini.
+*   **Jumlah Upaya**: Log hanya menunjukkan satu upaya login yang gagal. Untuk analisis yang lebih mendalam tentang serangan *brute force*, diperlukan data tentang frekuensi dan pola upaya login yang gagal dari alamat IP yang sama atau menargetkan akun yang sama.
+*   **Informasi Tambahan**: Tidak ada informasi tentang sistem yang diserang (OS, versi SSH daemon), yang dapat membantu dalam mengidentifikasi kerentanan spesifik."
+LOG-01;Analyze the failed SSH login attempts in the security logs;log_analysis;brute_force_detection;log_analysis;ollama:llama3.2:3b;ollama:llama3.2:3b;2;2;2;2;6667;;FALSE;5179;TRUE;;0;Log keamanan lokal (ChromaDB (vector));;"**Analisis Keamanan Failed SSH Login Attempts**
+
+**Data Log Relevan:**
+
+1. [1] (0.41) Failed password for root from 192.168.1.105 port 22 ssh2
+2. [2] (0.31) Failed password for invalid user admin from 10.0.0.5 port 3389
+3. [3] (0.31) Authentication failure for user admin from 172.16.0.5
+
+**Klasifikasi Severity:**
+
+* [1]: Critical ( CVE-ID: N/A, CWE-286, CAPEC-SEI-4.2)
+* [2]: High (CVE-ID: N/A, CWE-259, CAPEC-SEI-4.3)
+* [3]: Medium (CVE-ID: N/A, CWE-287, CAPEC-SEI-4.1)
+
+**Langkah Respons:**
+
+1. **Investigasi Lebih Lanjut:** Lakukan investigasi lebih lanjut untuk mengetahui alasan failed login attempt tersebut.
+2. **Perbarui Kebijakan Keamanan:** Perbarui kebijakan keamanan SSH untuk memastikan bahwa pengguna hanya dapat login dengan akun yang valid.
+3. **Aktualisasi Perangkat Lunak:** Aktualisasi perangkat lunak SSH untuk memperbarui keamanannya dan mencegah serangan yang lebih kompleks.
+4. **Pantau Log Keamanan:** Pantau log keamanan secara teratur untuk mendeteksi potensi serangan lainnya.
+
+**Catatan:**
+
+* CVE-ID, CWE, dan CAPEC tidak dapat diprediksi karena data log tidak menyediakan informasi yang cukup tentang serangan tersebut.
+* Klasifikasi severity di atas berdasarkan pada umumnya dan mungkin perlu disesuaikan dengan kebijakan keamanan organisasi."
+LOG-02;Detect suspicious reverse shell connections in the logs;log_analysis;intrusion_detection;log_analysis;gemini-2.5-flash;gemini-2.5-flash;2;2;2;2;10;;FALSE;16633;TRUE;;0;Log keamanan lokal (ChromaDB (vector));;"Berdasarkan analisis log yang diberikan, terdeteksi adanya indikator kuat aktivitas *reverse shell* dan potensi kompromi sistem.
+
+### Deteksi Aktivitas Mencurigakan
+
+1.  **Potensi Reverse Shell Terdeteksi:**
+    *   **Log [1]:** ""New connection from 45.33.32.156 on port 4444 (possible reverse shell)""
+        *   **Analisis:** Log ini secara eksplisit mengidentifikasi adanya koneksi keluar (umumnya dari sistem internal yang terkompromi) ke alamat IP eksternal `45.33.32.156` pada port `4444`. Port `4444` sering digunakan oleh penyerang untuk *Command and Control (C2)*, khususnya untuk *reverse shell*.
+        *   **Korelasi SEPSES CSKG / MITRE ATT&CK:** Aktivitas ini sangat sesuai dengan taktik **Command and Control (TA0011)**, khususnya teknik **T1090.001 (Standard Application Layer Protocol)** atau **T1071.001 (Web Protocols)** jika menggunakan HTTP/S, atau **T1090 (Proxy)**. Ini juga bisa terkait dengan **Execution (TA0002)**, khususnya **T1059 (Command and Scripting Interpreter)**, di mana *shell* dieksekusi pada sistem yang terkompromi.
+
+2.  **Upaya Pengunduhan Web Shell:**
+    *   **Log [2]:** ""PHP Warning: file_get_contents(http://malicious.com/shell.php)""
+        *   **Analisis:** Peringatan PHP ini menunjukkan adanya upaya oleh aplikasi PHP pada sistem internal untuk mengunduh file `shell.php` dari domain `malicious.com`. File `shell.php` hampir pasti adalah *web shell* yang digunakan penyerang untuk mendapatkan akses persisten dan menjalankan perintah pada server web yang terkompromi. Pengunduhan ini sering menjadi langkah awal sebelum penyerang mencoba membangun *reverse shell*.
+        *   **Korelasi SEPSES CSKG / MITRE ATT&CK:** Ini terkait dengan taktik **Initial Access (TA0001)** jika ini adalah cara awal penyerang masuk (misalnya, melalui eksploitasi kerentanan web), **Execution (TA0002)** untuk menjalankan *web shell*, dan **Persistence (TA0003)** untuk mempertahankan akses. Teknik spesifik bisa jadi **T1190 (Exploit Public-Facing Application)** atau **T1505.003 (Server Software Component: Web Shell)**.
+
+3.  **Potensi Serangan Distraksi (Tidak Langsung Terkait Reverse Shell):**
+    *   **Log [3]:** ""Possible SYN flood on port 80""
+        *   **Analisis:** Ini menunjukkan adanya serangan *Denial of Service (DoS)* berupa *SYN flood* pada port 80. Meskipun tidak secara langsung terkait dengan *reverse shell*, serangan DoS sering digunakan sebagai taktik distraksi untuk mengalihkan perhatian tim keamanan saat penyerang melakukan aktivitas lain yang lebih berbahaya (seperti membangun *reverse shell*).
+        *   **Korelasi SEPSES CSKG / MITRE ATT&CK:** Ini terkait dengan taktik **Impact (TA0040)**, khususnya teknik **T1498 (Network Denial of Service)**.
+
+### Entitas Spesifik
+
+*   **CVE-ID, CWE, CAPEC, Skor CVSS:** Log yang diberikan **tidak menyediakan informasi spesifik** mengenai CVE-ID, CWE, CAPEC, atau skor CVSS. Untuk mendapatkan informasi ini, diperlukan analisis lebih lanjut terhadap kerentanan yang mungkin dieksploitasi pada sistem yang terkompromi.
+
+### Klasifikasi Severity
+
+**Severity: Critical**
+
+Alasan: Deteksi *reverse shell* dan upaya pengunduhan *web shell* mengindikasikan adanya kompromi aktif pada sistem internal. Penyerang kemungkinan besar telah mendapatkan akses eksekusi kode dan sedang mencoba membangun saluran *Command and Control* yang persisten. Ini merupakan ancaman langsung terhadap kerahasiaan, integritas, dan ketersediaan sistem.
+
+### Langkah Respons (Actionable Steps)
+
+1.  **Isolasi dan Kontainmen Segera:**
+    *   **Identifikasi Host:** Segera identifikasi host internal yang terhubung ke `45.33.32.156:4444` atau yang mencoba mengunduh `shell.php` dari `malicious.com`.
+    *   **Isolasi Jaringan:** Putuskan koneksi jaringan host yang teridentifikasi dari jaringan produksi untuk mencegah penyebaran lebih lanjut atau eksfiltrasi data.
+    *   **Blokir IP/Domain:** Blokir alamat IP `45.33.32.156` dan domain `malicious.com` pada firewall perimeter dan DNS internal untuk mencegah komunikasi C2 lebih lanjut dan upaya pengunduhan *malware* lainnya.
+
+2.  **Investigasi dan Analisis Forensik:**
+    *   **Snapshot Sistem:** Ambil *snapshot* atau *image* forensik dari host yang terkompromi untuk analisis lebih lanjut.
+    *   **Analisis Log:** Periksa log sistem (web server, OS, aplikasi) pada host yang terkompromi untuk mencari jejak aktivitas penyerang, seperti:
+        *   Bagaimana *web shell* diunggah atau dieksekusi? (Cari log akses web, log error PHP, log eksekusi perintah).
+        *   Perintah apa saja yang dijalankan?
+        *   Adakah upaya *lateral movement* ke sistem lain?
+        *   Adakah data yang diakses atau dieksfiltrasi?
+    *   **Analisis Malware:** Jika `shell.php` berhasil diunduh, analisis file tersebut untuk memahami fungsionalitasnya.
+    *   **Cari Indikator Kompromi (IoC):** Cari IoC lain seperti file mencurigakan, proses aneh, *scheduled tasks* baru, atau akun pengguna yang tidak sah.
+
+3.  **Remediasi dan Pemulihan:**
+    *   **Hapus Malware:** Hapus *web shell* dan *malware* lain yang ditemukan dari sistem.
+    *   **Patch Kerentanan:** Identifikasi dan *patch* kerentanan yang dieksploitasi untuk mendapatkan akses awal.
+    *   **Ganti Kredensial:** Ganti semua kredensial yang mungkin telah diakses atau dikompromikan pada sistem tersebut dan sistem terkait.
+    *   **Perkuat Keamanan:** Tinjau dan perkuat konfigurasi keamanan pada sistem yang terkompromi dan sistem serupa.
+
+4.  **Tinjau Serangan SYN Flood:**
+    *   Meskipun prioritas utama adalah *reverse shell*, tetap pantau dan mitigasi serangan *SYN flood* pada port 80. Ini mungkin upaya distraksi, tetapi juga dapat menyebabkan gangguan layanan.
+
+5.  **Dokumentasi:**
+    *   Dokumentasikan semua temuan, langkah-langkah yang diambil, dan hasil investigasi untuk referensi di masa mendatang dan pelaporan insiden."
+LOG-02;Detect suspicious reverse shell connections in the logs;log_analysis;intrusion_detection;log_analysis;ollama:llama3.2:3b;ollama:llama3.2:3b;2;2;2;2;10;;FALSE;62043;TRUE;;0;Log keamanan lokal (ChromaDB (vector));;"Berikut adalah analisis log keamanan yang relevan:
+
+**Log Relevan:**
+
+1. [1] (0.37) New connection from 45.33.32.156 on port 4444 (possible reverse shell)
+2. [2] (0.35) PHP Warning: file_get_contents(http://malicious.com/shell.php)
+3. [3] (0.28) Possible SYN flood on port 80
+
+**Analisis:**
+
+* **[1]**: Log ini menunjukkan adanya koneksi baru dari alamat IP 45.33.32.156 pada port 4444, yang merupakan indikasi mungkin reverse shell. Reverse shell adalah teknik yang digunakan oleh penyerang untuk mendapatkan akses ke sistem target tanpa memerlukan autentikasi.
+* **[2]**: Log ini menunjukkan peringatan PHP tentang file_get_contents() yang mengakses URL http://malicious.com/shell.php. Ini dapat dianggap sebagai indikasi penyerangan dengan menggunakan shell remote, yang merupakan teknik yang digunakan untuk mendapatkan akses ke sistem target.
+* **[3]**: Log ini menunjukkan kemungkinan serangan SYN flood pada port 80, yang dapat digunakan untuk mengganggu sistem dan membuatnya tidak stabil.
+
+**Korelasi dengan SEPSES CSKG:**
+
+* CVE-ID: Tidak ada yang terdeteksi secara langsung, namun beberapa indikasi penyerangan yang dapat dilakukan oleh penyerang.
+* CWE (Common Weakness Enumeration): CWE-89 (Improper Neutralization of Inputs During Web Page Generation) dan CWE-78 (Path Traversal).
+* CAPEC (Common Attack Pattern Enumeration and Classification): CAPEC-79 (Remote File Inclusion Vulnerability) dan CAPEC-80 (SYN Flood Attack).
+
+**Skor CVSS:**
+
+* [1]: Skor 8.5/10 (High)
+* [2]: Skor 7.5/10 (Medium)
+* [3]: Skor 6.5/10 (Low)
+
+**Langkah Respons:**
+
+1. **[1]**: Periksa log koneksi untuk memastikan bahwa koneksi tersebut benar-benar dari alamat IP yang diidentifikasi.
+2. **[2]**: Periksa file_get_contents() untuk memastikan bahwa URL yang dikunjungi tidak berbahaya.
+3. **[3]**: Periksa sistem untuk memastikan bahwa serangan SYN flood tidak terjadi.
+
+**Severity:** High/Medium/Low
+
+* [1] dan [2]: High
+* [3]: Low"
+LOG-03;Identify SQL injection attempts from the security event logs;log_analysis;web_attack_detection;log_analysis;gemini-2.5-flash;gemini-2.5-flash;2;2;2;2;10;;FALSE;8894;TRUE;;0;Log keamanan lokal (ChromaDB (vector));;"Berdasarkan log keamanan yang diberikan, berikut adalah identifikasi upaya SQL injection:
+
+**Identifikasi Upaya SQL Injection:**
+
+*   **Log Relevan:** `[1] (0.58) SQL injection attempt detected in GET parameter`
+
+**Analisis:**
+Log ini secara eksplisit menunjukkan adanya upaya SQL injection yang terdeteksi pada parameter GET. Ini mengindikasikan bahwa penyerang mencoba menyuntikkan kode SQL melalui URL aplikasi web.
+
+**Severity:**
+**High**
+Upaya SQL injection merupakan ancaman serius karena dapat menyebabkan kebocoran data sensitif, modifikasi data, atau bahkan kendali penuh atas database jika berhasil dieksploitasi. Deteksi pada parameter GET menunjukkan kerentanan pada aplikasi web yang perlu segera ditangani.
+
+**Keterbatasan Konteks:**
+Berdasarkan konteks yang diberikan, informasi spesifik mengenai SEPSES CSKG, MITRE ATT&CK, CVE-ID, CWE, CAPEC, dan skor CVSS tidak tersedia. Oleh karena itu, analisis lebih lanjut terkait entitas-entitas tersebut tidak dapat dilakukan.
+
+**Langkah Respons (Actionable Steps):**
+
+1.  **Verifikasi dan Investigasi:**
+    *   Periksa log aplikasi web secara lebih detail untuk mengidentifikasi parameter GET yang spesifik dan payload SQL injection yang digunakan.
+    *   Identifikasi sumber IP penyerang (tidak tersedia di log ini, perlu dicari di log lain seperti web server access logs).
+    *   Periksa apakah upaya ini berhasil atau hanya merupakan percobaan yang diblokir.
+
+2.  **Mitigasi Segera:**
+    *   **Blokir IP Sumber:** Jika IP sumber dapat diidentifikasi, blokir sementara di firewall atau WAF (Web Application Firewall).
+    *   **Perbarui WAF Rules:** Pastikan aturan WAF diperbarui dan dikonfigurasi untuk mendeteksi dan memblokir pola SQL injection yang diketahui.
+    *   **Nonaktifkan Fungsi Rentan (Jika Memungkinkan):** Jika kerentanan teridentifikasi pada fitur tertentu, pertimbangkan untuk menonaktifkan fitur tersebut sementara hingga perbaikan diterapkan.
+
+3.  **Perbaikan Jangka Panjang:**
+    *   **Perbaiki Kode Aplikasi:** Lakukan audit kode pada bagian aplikasi yang memproses parameter GET untuk mengidentifikasi dan memperbaiki kerentanan SQL injection. Implementasikan praktik pengkodean aman seperti:
+        *   Menggunakan *prepared statements* dengan *parameterized queries*.
+        *   Melakukan *input validation* yang ketat (whitelist validation).
+        *   Melakukan *output encoding* untuk mencegah XSS (Cross-Site Scripting) yang sering menyertai kerentanan injeksi.
+    *   **Pindai Kerentanan:** Lakukan pemindaian kerentanan (Vulnerability Scan) dan pengujian penetrasi (Penetration Testing) pada aplikasi web untuk menemukan kerentanan serupa lainnya.
+    *   **Edukasi Pengembang:** Berikan pelatihan keamanan kepada tim pengembang mengenai praktik pengkodean aman dan ancaman SQL injection.
+
+4.  **Pelaporan dan Dokumentasi:**
+    *   Dokumentasikan insiden ini, termasuk waktu, detail log, IP sumber (jika ditemukan), dan langkah-langkah respons yang diambil.
+    *   Laporkan insiden ini kepada tim keamanan dan manajemen yang relevan."
+LOG-03;Identify SQL injection attempts from the security event logs;log_analysis;web_attack_detection;log_analysis;ollama:llama3.2:3b;ollama:llama3.2:3b;2;2;2;2;10;;FALSE;56607;TRUE;;0;Log keamanan lokal (ChromaDB (vector));;"Berikut adalah analisis log keamanan yang relevan untuk pertanyaan ""Identify SQL injection attempts dari log keamanan ChromaDB (vector)"" :
+
+**Log Relevan:**
+
+1. [1] (0.58) SQL injection attempt detected in GET parameter
+2. [2] (0.25) Unauthorized access attempt to /admin panel from 10.10.10.5
+
+**Analisis:**
+
+* Log [1] menunjukkan bahwa terdapat upaya penyerangan SQL injection yang mendeteksi dalam parameter GET.
+* Log [2] menunjukkan bahwa terdapat upaya akses tidak berizan yang mencoba mengakses panel administrasi dari IP address 10.10.10.5.
+
+**Korelasi dengan SEPSES CSKG:**
+
+* SQL injection attempt (Log [1]) dapat diklasifikasikan sebagai CWE-89 (Improper Neutralization of Special Elements used in an SQL Command) dan CAPEC-79 (SQL Injection Attack).
+* Unauthorized access attempt (Log [2]) dapat diklasifikasikan sebagai CWE-312 (Authentication Bypass through File or Directory Access).
+
+**Skor CVSS:**
+
+* Log [1] memiliki skor CVSS sebesar 8.3 (High) karena upaya penyerangan SQL injection yang mendeteksi.
+* Log [2] memiliki skor CVSS sebesar 6.4 (Medium) karena upaya akses tidak berizan yang mencoba mengakses panel administrasi.
+
+**Langkah Respons:**
+
+1. Periksa log keamanan ChromaDB untuk menemukan lebih banyak informasi tentang upaya penyerangan SQL injection.
+2. Verifikasi apakah IP address 10.10.10.5 adalah IP address yang sah dan tidak perlu diizinkan akses administratif.
+3. Lakukan pengecekan pada database untuk memastikan bahwa semua parameter GET telah disertakan dengan benar dan aman.
+4. Perbarui aturan akses administratif untuk mengizinkan hanya IP address yang sah untuk mengakses panel administrasi.
+
+**Severity:**
+
+* Log [1]: Critical (High)
+* Log [2]: Medium (6.4)
+
+Catatan: Klasifikasi severity dapat berbeda-beda tergantung pada konteks dan keamanan organisasi."
+COMB-01;Analyze the malware signature 'Trojan.GenericKD' found in logs and correlate with known threat intelligence;combined;malware_correlation;combined;gemini-2.5-flash;gemini-2.5-flash;2;2;2;2;10;;FALSE;15886;TRUE;;0;"MITRE ATT&CK; Log keamanan lokal (ChromaDB (vector))";;"Berdasarkan konteks yang diberikan:
+
+**Keterbatasan Konteks Threat Intelligence:**
+Threat intelligence yang disediakan hanya mencakup detail untuk `Trojan.Karagany` (MITRE S0094, terkait dengan grup Dragonfly G0035) dan `Trojan.Mebromi` (MITRE S0001). Tidak ada informasi spesifik (CVE-ID, CWE, CAPEC, atau skor CVSS) yang diberikan untuk `Trojan.GenericKD` dalam konteks ini. Oleh karena itu, korelasi langsung dengan entitas spesifik tersebut tidak dapat dilakukan.
+
+**Analisis Log Keamanan Lokal dan Korelasi Indikator:**
+
+Meskipun tidak ada detail spesifik untuk `Trojan.GenericKD` dalam threat intelligence yang diberikan, kita dapat menganalisis indikator dari log keamanan lokal:
+
+1.  **Log [1] (0.70) Malware signature detected: Trojan.GenericKD in C:\Windows\Temp\svchost.exe**
+    *   **Indikator:** Deteksi signature malware generik (`Trojan.GenericKD`) pada lokasi yang mencurigakan (`C:\Windows\Temp\svchost.exe`). `svchost.exe` adalah nama proses sistem yang sering disalahgunakan oleh malware untuk menyamarkan diri dan mencapai persistensi. Direktori `C:\Windows\Temp\` juga merupakan lokasi umum untuk file sementara atau malware yang baru diunduh.
+    *   **Korelasi:** Ini menunjukkan adanya eksekusi kode berbahaya di sistem Windows. Meskipun ""GenericKD"" tidak spesifik, ini mengindikasikan adanya trojan yang berhasil masuk dan mencoba bersembunyi sebagai proses sistem.
+
+2.  **Log [2] (0.40) PHP Warning: file_get_contents(http://malicious.com/shell.php)**
+    *   **Indikator:** Upaya atau keberhasilan server PHP untuk mengunduh file dari URL eksternal yang mencurigakan (`http://malicious.com/shell.php`). `shell.php` sangat mengindikasikan web shell, yang digunakan penyerang untuk mendapatkan akses dan kontrol jarak jauh atas server web.
+    *   **Korelasi:** Ini kemungkinan besar adalah vektor infeksi awal atau mekanisme persistensi/eksploitasi sekunder yang terkait dengan keberadaan trojan. Trojan sering digunakan untuk mengunduh komponen tambahan atau sebagai bagian dari rantai serangan yang lebih besar yang melibatkan kompromi server web. Ini bisa menjadi cara `Trojan.GenericKD` masuk ke sistem atau cara ia mencoba memperluas jangkauannya.
+
+3.  **Log [3] (0.31) Possible SYN flood on port 80**
+    *   **Indikator:** Serangan Denial of Service (DoS) atau aktivitas pemindaian jaringan yang intensif (`SYN flood`) yang menargetkan port 80 (HTTP).
+    *   **Korelasi:** Ini bisa menjadi aktivitas terpisah yang menargetkan server web yang sama, atau bisa juga merupakan aktivitas sekunder dari `Trojan.GenericKD` jika trojan tersebut memiliki kemampuan botnet atau digunakan untuk meluncurkan serangan DoS. Beberapa trojan, seperti `Trojan.Karagany` yang disebutkan dalam konteks, dikenal memiliki kemampuan recon dan modular yang bisa diperluas untuk aktivitas seperti ini.
+
+**Rekomendasi Tindakan (Actionable):**
+
+1.  **Isolasi dan Analisis Host Terinfeksi:**
+    *   Segera isolasi host yang terdeteksi memiliki `C:\Windows\Temp\svchost.exe` yang terinfeksi `Trojan.GenericKD`.
+    *   Lakukan analisis forensik mendalam pada host tersebut untuk mengidentifikasi:
+        *   Vektor infeksi awal.
+        *   Mekanisme persistensi yang digunakan oleh trojan.
+        *   Komunikasi Command and Control (C2) yang dilakukan.
+        *   File atau proses lain yang terkait.
+        *   Dampak dan cakupan kompromi.
+
+2.  **Investigasi Server Web yang Terkompromi:**
+    *   Selidiki server yang menghasilkan `PHP Warning: file_get_contents(http://malicious.com/shell.php)`.
+    *   Periksa log akses web, log error, dan file sistem untuk keberadaan `shell.php` atau file mencurigakan lainnya.
+    *   Identifikasi kerentanan yang dieksploitasi (misalnya, Remote File Inclusion/RFI, Local File Inclusion/LFI, upload file yang tidak aman, atau kerentanan aplikasi web lainnya).
+    *   Hapus web shell dan perbaiki kerentanan yang ditemukan.
+
+3.  **Blokir Indikator Kompromi (IoC):**
+    *   Tambahkan `malicious.com` ke daftar blokir pada firewall, proxy, atau sistem deteksi intrusi (IDS/IPS) untuk mencegah komunikasi lebih lanjut.
+    *   Ekstrak dan blokir IoC lain yang ditemukan selama analisis forensik (misalnya, alamat IP C2, hash file malware).
+
+4.  **Mitigasi Serangan SYN Flood:**
+    *   Selidiki sumber dan tujuan SYN flood pada port 80.
+    *   Terapkan mitigasi DDoS pada perimeter jaringan jika serangan masih berlangsung atau berulang.
+    *   Periksa apakah host yang terinfeksi `Trojan.GenericKD` terlibat dalam meluncurkan serangan SYN flood.
+
+5.  **Pembaruan dan Patching:**
+    *   Pastikan semua sistem, terutama server web dan host Windows, telah diperbarui dengan patch keamanan terbaru untuk mencegah eksploitasi kerentanan yang diketahui.
+
+6.  **Peningkatan Deteksi:**
+    *   Perbarui definisi antivirus/EDR dan konfigurasi aturan deteksi untuk mencakup varian trojan generik dan perilaku terkait web shell.
+    *   Implementasikan pemantauan integritas file untuk mendeteksi perubahan pada file sistem kritis atau penambahan file mencurigakan."
+COMB-01;Analyze the malware signature 'Trojan.GenericKD' found in logs and correlate with known threat intelligence;combined;malware_correlation;combined;ollama:llama3.2:3b;ollama:llama3.2:3b;2;2;2;2;10;;FALSE;71542;TRUE;;0;"MITRE ATT&CK; Log keamanan lokal (ChromaDB (vector))";;"Berikut adalah analisis keamanan siber berdasarkan konteks yang diberikan:
+
+**Identifikasi Malware**
+
+* Nama malware: Trojan.GenericKD
+* Platform: Windows
+* Deskripsi: Malware ini tidak disebutkan secara spesifik dalam log, namun dapat dikorelasikan dengan CVE-ID dan CWE/CWE terkait.
+
+**Korelasi dengan Threat Intelligence**
+
+* Berdasarkan SEPSES CSKG & MITRE, Trojan.GenericKD dapat dikorelasikan dengan [Trojan](https://attack.mitre.org/software/S0094) yang digunakan dalam Dragonfly (G0035).
+* Selain itu, malware ini juga dapat dikorelasikan dengan [Trojan.Mebromi](https://attack.mitre.org/software/S0001) yang digunakan untuk mengontrol BIOS-level.
+
+**Korelasi dengan Log Relevan**
+
+* Pada log [1], malware signature Trojan.GenericKD ditemukan dalam file svchost.exe di C:\Windows\Temp.
+* Pada log [2], terdapat PHP Warning yang dapat dikorelasikan dengan file_get_contents() yang digunakan untuk mengakses shell.php, yang mungkin digunakan oleh malware.
+* Pada log [3], terdapat Possible SYN flood on port 80, yang dapat dikorelasikan dengan aktivitas yang dilakukan oleh malware.
+
+**Rekomendasi**
+
+1. Periksa file svchost.exe di C:\Windows\Temp untuk memastikan tidak ada malware lain yang bersembunyi.
+2. Lakukan scan virus pada komputer untuk memastikan tidak ada malware lain yang terinfeksi.
+3. Periksa log PHP untuk memastikan tidak ada aktivitas yang mencurigakan lainnya.
+4. Lakukan analisis lebih lanjut pada file_get_contents() dan shell.php untuk memastikan tidak ada aktivitas yang mencurigakan.
+
+**Entitas Spesifik**
+
+* CVE-ID: Tidak disebutkan secara spesifik dalam log, namun dapat dikorelasikan dengan CVE-ID terkait dengan Trojan.GenericKD.
+* CWE/CWE: [CWE-89](https://cwe.mitre.org/data/definitions/89) - Software Deviation from Security Requirements
+* CAPEC: Tidak disebutkan secara spesifik dalam log, namun dapat dikorelasikan dengan CAPEC terkait dengan Trojan.GenericKD.
+
+**Skor CVSS**
+
+* Skor CVSS tidak disebutkan secara spesifik dalam log, namun dapat dikorelasikan dengan skor CVSS terkait dengan Trojan.GenericKD."
+COMB-02;Correlate the port scan activity in logs with MITRE ATT&CK techniques;combined;attack_correlation;combined;gemini-2.5-flash;gemini-2.5-flash;2;2;2;2;6667;;FALSE;12636;TRUE;;0;Log keamanan lokal (ChromaDB (vector));;"Berdasarkan konteks log yang diberikan, berikut adalah korelasi aktivitas *port scan* dengan teknik MITRE ATT&CK:
+
+**1. Korelasi Log dengan MITRE ATT&CK**
+
+*   **Indikator Log:** `[1] (0.53) Port scan detected from 192.168.1.99`
+    *   **MITRE ATT&CK Tactic:** Reconnaissance
+    *   **MITRE ATT&CK Technique:** T1595.001 - Active Scanning: Port Scan
+        *   **Deskripsi:** Penyerang melakukan pemindaian aktif terhadap target untuk mengidentifikasi port yang terbuka, layanan yang berjalan, dan potensi kerentanan. Log ini secara langsung mengindikasikan upaya pengintaian aktif dari alamat IP `192.168.1.99`.
+
+**2. Keterbatasan Konteks**
+
+*   Berdasarkan konteks yang diberikan, tidak ada informasi spesifik mengenai CVE-ID, CWE, CAPEC, atau skor CVSS yang dapat dikorelasikan langsung dengan aktivitas *port scan* ini. Informasi tersebut biasanya berasal dari basis data kerentanan atau intelijen ancaman yang lebih luas (seperti SEPSES CSKG) yang tidak tersedia dalam konteks ini.
+
+**3. Rekomendasi Tindakan (Actionable Recommendations)**
+
+Berdasarkan korelasi dengan MITRE ATT&CK T1595.001:
+
+*   **Blokir Sumber:** Segera blokir alamat IP sumber `192.168.1.99` pada *firewall* atau *Intrusion Prevention System* (IPS) untuk mencegah pemindaian lebih lanjut dan potensi serangan berikutnya.
+*   **Peningkatan Pemantauan:** Tingkatkan pemantauan lalu lintas jaringan untuk mendeteksi pola pemindaian yang tidak biasa atau aktivitas mencurigakan lainnya dari sumber internal maupun eksternal.
+*   **Audit Konfigurasi Firewall/IDS/IPS:** Pastikan aturan *firewall*, IDS, dan IPS dikonfigurasi dengan benar untuk mendeteksi dan memblokir berbagai jenis pemindaian port.
+*   **Segmentasi Jaringan:** Tinjau dan perkuat segmentasi jaringan untuk membatasi jangkauan pemindaian jika penyerang berhasil mendapatkan akses ke segmen jaringan tertentu.
+*   **Investigasi Lanjutan:** Lakukan investigasi lebih lanjut terhadap `192.168.1.99` untuk menentukan apakah ini adalah host internal yang terkompromi atau sumber eksternal.
+
+**4. Catatan Mengenai Log Lain (Tidak Terkait Langsung dengan ""Port Scan Activity"")**
+
+*   `[2] (0.37) Possible SYN flood on port 80`: Meskipun melibatkan port, ""SYN flood"" lebih mengarah pada upaya *Denial of Service* (DoS) (misalnya, MITRE ATT&CK T1499 - Network Denial of Service) daripada sekadar pemindaian port untuk pengintaian. Ini memerlukan penanganan sebagai potensi serangan DoS.
+*   `[3] (0.32) New connection from 45.33.32.156 on port 4444 (possible reverse shell)`: Ini adalah indikator kritis dari potensi kompromi sistem dan pembentukan *Command and Control* (C2) (misalnya, MITRE ATT&CK T1090 - Proxy atau T1071 - Application Layer Protocol untuk C2 melalui *reverse shell*). Ini bukan aktivitas *port scan* dan memerlukan respons insiden segera."
+COMB-02;Correlate the port scan activity in logs with MITRE ATT&CK techniques;combined;attack_correlation;combined;ollama:llama3.2:3b;ollama:llama3.2:3b;1;1;2;1;3333;CVE-2019-5777;FALSE;55247;TRUE;;0;Log keamanan lokal (ChromaDB (vector));;"Berikut adalah analisis keamanan siber berdasarkan log relevan dan teknik MITRE ATT&CK:
+
+**Log Relevan:**
+
+1. [1] (0.53) Port scan detected dari 192.168.1.99
+2. [2] (0.37) Possible SYN flood on port 80
+3. [3] (0.32) New connection dari 45.33.32.156 pada port 4444 (mungkin reverse shell)
+
+**MITRE ATT&CK Techniques:**
+
+* T1003: Probing for Network Services and Ports
+* T1210: Exploiting Vulnerabilities in Network Services
+* T1256: Creating a Backdoor
+
+**Korelasi dengan MITRE ATT&CK Techniques:**
+
+1. [1] (0.53) Port scan detected dari 192.168.1.99:
+	* Korelasi dengan T1003: Probing for Network Services and Ports
+	* CVE-ID: CVE-2019-5777 (exploit untuk port TCP 80)
+2. [2] (0.37) Possible SYN flood on port 80:
+	* Korelasi dengan T1210: Exploiting Vulnerabilities in Network Services
+	* CWE-ID: CWE-611 (Improper Input Handling)
+3. [3] (0.32) New connection dari 45.33.32.156 pada port 4444 (mungkin reverse shell):
+	* Korelasi dengan T1256: Creating a Backdoor
+	* CAPEC-ID: CAPEC-86 (Creating a Reverse Shell)
+
+**Rekomendasi:**
+
+1. Periksa log untuk mencari tanda-tanda lain dari aktivitas penyerangan yang sama.
+2. Lakukan scan port untuk memastikan tidak ada lalu lintas jahat lainnya.
+3. Periksa sistem operasi dan aplikasi yang terinstal untuk memastikan tidak ada vulnerabilitas yang dapat dieksploitasi.
+4. Lakukan analisis lebih lanjut pada log untuk mencari tanda-tanda lain dari aktivitas penyerangan.
+
+Catatan: Karena konteks data tidak cukup, rekomendasi di atas hanya sebagai contoh dan perlu disesuaikan dengan kebutuhan spesifik organisasi."
+COMB-03;Investigate the unauthorized access attempts to admin panel and map to relevant CVEs and attack patterns;combined;incident_investigation;combined;gemini-2.5-flash;gemini-2.5-flash;2;2;2;2;6667;;FALSE;15329;TRUE;;0;Log keamanan lokal (ChromaDB (vector));;"Sebagai analis keamanan siber, saya telah menganalisis log keamanan lokal yang relevan untuk upaya akses tidak sah ke panel admin dan mengkorelasikannya dengan pola serangan yang diketahui.
+
+---
+
+### Analisis Log Keamanan Lokal
+
+Berdasarkan log yang diberikan, teridentifikasi beberapa upaya akses tidak sah:
+
+*   **[1] (0.63) Unauthorized access attempt to /admin panel from 10.10.10.5:** Indikasi langsung adanya upaya akses tidak sah ke antarmuka administrasi berbasis web. Ini bisa berupa percobaan brute-force, credential stuffing, atau bahkan upaya bypass autentikasi.
+*   **[2] (0.44) Authentication failure for user admin from 172.16.0.5:** Menunjukkan kegagalan autentikasi berulang untuk pengguna 'admin'. Ini adalah indikator kuat dari serangan brute-force atau credential stuffing yang menargetkan akun administrator.
+*   **[3] (0.33) Failed password for invalid user admin from 10.0.0.5 port 3389:** Secara spesifik menunjukkan kegagalan kata sandi untuk pengguna 'admin' melalui port 3389, yang merupakan port standar untuk Remote Desktop Protocol (RDP). Ini mengindikasikan serangan brute-force yang menargetkan layanan RDP.
+
+**Kesimpulan Log:** Terdapat upaya serangan brute-force yang terkoordinasi atau terpisah yang menargetkan panel admin berbasis web dan layanan RDP, keduanya mencoba mengakses akun 'admin' yang memiliki hak istimewa.
+
+---
+
+### Korelasi dengan Threat Intelligence (Inferensi)
+
+Meskipun tidak ada data SEPSES CSKG atau MITRE ATT&CK yang spesifik diberikan dalam konteks ini, berdasarkan pola serangan yang teridentifikasi dari log, kita dapat menginferensi korelasi dengan entitas umum sebagai berikut:
+
+1.  **Tipe Serangan:**
+    *   **Brute Force Attack:** Upaya sistematis untuk menebak kredensial (username dan password) dengan mencoba kombinasi yang berbeda hingga ditemukan yang benar.
+    *   **Credential Stuffing:** Menggunakan daftar kredensial yang bocor dari pelanggaran data lain untuk mencoba masuk ke akun di layanan lain.
+    *   **Unauthorized Access Attempt:** Upaya umum untuk mendapatkan akses ke sistem atau sumber daya tanpa izin yang sah.
+
+2.  **CWE (Common Weakness Enumeration):**
+    *   **CWE-307: Improper Restriction of Excessive Authentication Attempts:** Sistem tidak secara memadai membatasi jumlah upaya autentikasi yang gagal, memungkinkan penyerang untuk melakukan serangan brute-force atau credential stuffing tanpa terdeteksi atau diblokir.
+    *   **CWE-287: Improper Authentication:** Jika upaya akses tidak sah berhasil karena kelemahan dalam mekanisme autentikasi (misalnya, bypass autentikasi), kelemahan ini akan relevan.
+
+3.  **CAPEC (Common Attack Pattern Enumeration and Classification):**
+    *   **CAPEC-113: Brute Force:** Pola serangan umum di mana penyerang mencoba semua kemungkinan kombinasi kredensial atau kunci untuk mendapatkan akses. Ini sangat relevan dengan semua log yang menunjukkan kegagalan autentikasi berulang.
+    *   **CAPEC-16: Credential Stuffing:** Menggunakan kredensial yang diperoleh dari pelanggaran data lain untuk mencoba masuk ke akun. Ini adalah kemungkinan metode di balik upaya brute-force.
+    *   **CAPEC-493: Password Guessing:** Bentuk spesifik dari brute force di mana penyerang mencoba menebak kata sandi.
+
+4.  **CVE-ID & CVSS Score:**
+    *   **Keterbatasan Konteks:** Tanpa informasi spesifik mengenai aplikasi panel admin yang ditargetkan (misalnya, nama aplikasi, versi, vendor) atau sistem operasi/versi yang menjalankan layanan RDP, **tidak mungkin untuk mengidentifikasi CVE-ID spesifik atau skor CVSS yang relevan.** CVE-ID mengacu pada kerentanan spesifik dalam produk atau versi tertentu. Upaya brute-force itu sendiri bukanlah CVE, melainkan metode serangan yang mengeksploitasi kelemahan dalam kebijakan autentikasi atau konfigurasi sistem.
+
+---
+
+### Rekomendasi Aksi (Actionable Recommendations)
+
+Berdasarkan korelasi di atas, berikut adalah langkah-langkah yang direkomendasikan:
+
+1.  **Implementasi Kebijakan Penguncian Akun (Account Lockout Policy):**
+    *   Konfigurasi sistem untuk mengunci akun (terutama 'admin') setelah sejumlah upaya login yang gagal dalam periode waktu tertentu (misalnya, 3-5 upaya gagal dalam 5 menit).
+    *   **Target:** Sistem panel admin dan layanan RDP.
+
+2.  **Penerapan Multi-Factor Authentication (MFA):**
+    *   Wajibkan MFA untuk semua akun administratif, termasuk 'admin', pada panel admin dan akses RDP. Ini akan secara signifikan mengurangi risiko keberhasilan serangan brute-force atau credential stuffing.
+    *   **Target:** Semua akun dengan hak istimewa.
+
+3.  **Pembatasan Akses Jaringan (Network Access Restrictions):**
+    *   **Untuk RDP (port 3389):** Batasi akses RDP hanya dari alamat IP yang dikenal dan tepercaya (misalnya, jaringan internal perusahaan atau VPN). Hindari mengekspos RDP langsung ke internet.
+    *   **Untuk Panel Admin Web:** Terapkan pembatasan IP pada firewall atau WAF (Web Application Firewall) untuk membatasi akses ke panel admin hanya dari jaringan yang sah.
+    *   **Target:** Firewall, WAF, konfigurasi RDP.
+
+4.  **Penerapan Rate Limiting:**
+    *   Konfigurasi WAF atau server web untuk menerapkan pembatasan laju (rate limiting) pada upaya login ke panel admin. Ini akan membatasi jumlah permintaan login dari satu alamat IP dalam periode waktu tertentu.
+    *   **Target:** WAF, server web (misalnya, Nginx, Apache).
+
+5.  **Penggunaan Nama Pengguna yang Kompleks/Unik:**
+    *   Hindari penggunaan nama pengguna default atau umum seperti 'admin'. Gunakan nama pengguna yang unik dan sulit ditebak untuk akun administratif.
+    *   **Target:** Kebijakan manajemen identitas dan akses.
+
+6.  **Pemantauan Log yang Ditingkatkan:**
+    *   Tingkatkan pemantauan log autentikasi untuk mendeteksi pola serangan brute-force secara real-time. Gunakan SIEM (Security Information and Event Management) untuk mengotomatiskan deteksi anomali dan memicu peringatan.
+    *   **Target:** SIEM, sistem logging.
+
+7.  **Pembaruan dan Patching Sistem:**
+    *   Pastikan semua sistem operasi, aplikasi web, dan layanan (termasuk RDP) selalu diperbarui dengan patch keamanan terbaru untuk mengatasi kerentanan yang diketahui.
+    *   **Target:** Semua sistem dan aplikasi.
+
+8.  **Edukasi Pengguna:**
+    *   Edukasi pengguna tentang pentingnya kata sandi yang kuat dan unik, serta bahaya serangan phishing yang dapat mengarah pada pencurian kredensial.
+    *   **Target:** Seluruh pengguna.
+
+---"
+COMB-03;Investigate the unauthorized access attempts to admin panel and map to relevant CVEs and attack patterns;combined;incident_investigation;combined;ollama:llama3.2:3b;ollama:llama3.2:3b;2;0;2;2;6667;CVE-2022-1234, CVE-2019-1234, CVE-2021-4567;FALSE;61725;TRUE;;0;Log keamanan lokal (ChromaDB (vector));;"Berikut adalah analisis keamanan siber berdasarkan log relevan yang diberikan:
+
+**Analisis Log**
+
+Dari log yang diberikan, terdapat tiga incident keamanan yang perlu dipertimbangkan:
+
+1. **Unauthorized access attempt to /admin panel dari 10.10.10.5**: Ini menunjukkan bahwa seseorang telah mencoba mengakses panel administrasi tanpa izin. Hal ini dapat dianggap sebagai serangan phishing atau brute force.
+2. **Authentication failure for user admin dari 172.16.0.5**: Ini menunjukkan bahwa pengguna admin telah mencoba login dengan username dan password yang salah. Hal ini dapat dianggap sebagai serangan brute force atau guessing password.
+3. **Failed password for invalid user admin dari 10.0.0.5 port 3389**: Ini menunjukkan bahwa seseorang telah mencoba mengakses server dengan username dan password yang salah, termasuk username yang tidak valid.
+
+**Korelasi dengan CVE/CWE/CAPEC**
+
+Berikut adalah korelasi antara incident keamanan dengan CVE/CWE/CAPEC:
+
+* [1] Unauthorized access attempt to /admin panel dari 10.10.10.5: CVE-2022-1234 (Brute Force Attack) - CAPEC-93 (Brute Force)
+* [2] Authentication failure for user admin dari 172.16.0.5: CWE-306 (Incorrect Password) - CVE-2019-1234 (Password Cracking)
+* [3] Failed password for invalid user admin dari 10.0.0.5 port 3389: CVE-2021-4567 (Weak Password Policy) - CAPEC-42 (Weak Password)
+
+**Rekomendasi**
+
+Berikut adalah rekomendasi untuk mengatasi incident keamanan:
+
+1. **Perbarui password**: Pastikan bahwa semua pengguna memiliki password yang kuat dan unik.
+2. **Aktifkan 2FA**: Aktifkan dua faktor verifikasi (2FA) untuk meningkatkan keamanan login.
+3. **Perbarui sistem**: Perbarui sistem operasi dan aplikasi untuk memperbarui patch keamanan terbaru.
+4. **Monitor log**: Monitor log keamanan secara teratur untuk mendeteksi serangan yang lebih lanjut.
+
+Dengan mengikuti rekomendasi di atas, dapat membantu mencegah serangan keamanan dan melindungi data penting."
