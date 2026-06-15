@@ -150,7 +150,7 @@ Starts four services: `virtuoso`, `virtuoso-loader`, `backend` (port 8000), and 
 
 ### 5. Open the App
 
--
+http://localhost:3000
 ---
 ## Running Locally (Development)
 
@@ -277,7 +277,63 @@ Kel9-LLM-Chatbot-SEPSESCSKG/
 ├── docker-compose.yml
 └── .env.example
 ```
+## System Architecture
 
+```text
+SEPSES-CSKG-LLM-Chatbot/
+
+├── Frontend (Next.js 15)
+│   ├── Chat Interface
+│   │   └── User query & conversation handling
+│   │
+│   ├── Analysis Dashboard
+│   │   └── Evaluation results & visualization
+│   │
+│   ├── Knowledge Graph Viewer
+│   │   └── KG triple visualization
+│   │
+│   └── Sidebar
+│       └── Session management & model selection
+│
+├── Backend API (FastAPI)
+│   │
+│   ├── Query Router
+│   │   └── Classify query mode:
+│   │       ├── Threat Intelligence
+│   │       ├── Log Analysis
+│   │       └── Combined Analysis
+│   │
+│   ├── RAG Orchestrator
+│   │   └── Manage retrieval & response generation flow
+│   │
+│   ├── Knowledge Sources
+│   │   │
+│   │   ├── SEPSES CSKG
+│   │   │   ├── SPARQL Public Endpoint
+│   │   │   └── Virtuoso Database
+│   │   │
+│   │   ├── MITRE ATT&CK
+│   │   │   └── enterprise-attack.json (STIX 2.0)
+│   │   │
+│   │   └── Security Logs
+│   │       └── ChromaDB Vector Store
+│   │
+│   └── LLM Layer
+│       ├── Gemini-2.5-Flash
+│       └── Llama3.2:3b (Ollama)
+│
+├── Data Processing
+│   ├── Knowledge Graph Processing
+│   ├── Threat Intelligence Processing
+│   └── Log Embedding & Retrieval
+│
+└── Deployment
+    ├── Docker Compose
+    ├── Frontend Container
+    ├── Backend Container
+    ├── Virtuoso Container
+    └── Ollama Container
+```
 ## Dataset & Knowledge Sources
 
 Primary dataset: **SEPSES Cybersecurity Knowledge Graph (CSKG)**
